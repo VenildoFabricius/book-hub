@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'cocogoose';
+    src: url('./fonts/Cocogoose.ttf') format('ttf');
+  }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    padding: 20px 230px; 
+}
+
+#login-cadast > a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-left: 25px;
+    padding: 5px;
+}
+
+#login-cadast > a:hover {
+    background-color: #BCFE65;
+    border-radius: 4px;
+}
+
+#apresentacao {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    margin-top: 30px; 
+    position: relative; 
+}
+
+#titulo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+}
+
+#img-apres {
+    position: absolute;
+    right: 0%;
+    margin-top: 100px;
+    margin-right: 230px;
+}
+
+#titulo > p {
+    margin-top: 15px;
+    font-size: 1.2rem;
+}
+
+#book-hub {
+    font-family: 'cocogoose';
+    font-size: 4rem;
+}
+
+.fundo-verde {
+    padding: 2px;
+    border-radius: 4px;
+    background-color: #BCFE65;
+}
+
+#search-container {
+    padding-top: 80px;
+}
+
+#search-bar {
+    padding: 10px;
+    width: 550px;
+    border: none;
+    border-bottom: 1px black solid;
+    font-size: 1rem;
+}
+
+#search-bar:focus{
+    outline: none;
+}
+
+#lupa {
+    font-size: 1.5rem;
+}
+
+#search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px; 
+    width: 50px; 
+    height: 50px; 
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px black solid;
+    cursor: pointer; 
+  }
+
+  #search-btn:hover {
+    border-radius: 4px 4px 0px 0px;
+    background-color: #BCFE65;
+  }
+
+  #search-title{
+    text-align: left;
+    font-size: 1rem;
+    margin: 60px 0px 0px 230px;
+  }
+
+

@@ -1,95 +1,38 @@
+import '@/app/page.css'
 import Image from "next/image";
-import styles from "./page.module.css";
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <>
+      <main>
+        <header>
+        <Image src="/LogoBlack.png" alt='Logo do site BookHub' width={40} height={40}/>
+        <div id='login-cadast'>
+          <Link href={'/user/create'}>Cadastrar</Link>
+          <Link href={'/user/login'}>Entrar</Link>
         </div>
+        </header>
+
+        <div id='apresentacao'>
+          <div id='titulo'>
+              <h2 id='book-hub'>BookHub</h2>
+              <p>Sua estante digital, pensada para quem <span className='fundo-verde'>ama ler!</span></p>
+          </div>
+            <Image id= 'img-apres' src="/ilustracao.jpg" alt='Ilustração menina voando em livros' width={232} height={200}/>
+        </div>
+        <div id='search-container'>
+          <input type="text" id='search-bar' placeholder='Encontre sua próxima história...' />
+          <button id='search-btn'><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa'/></button>
+        </div>
+
+        <p id='search-title'></p>
+        <section id='search-results'>
+
+        </section>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }
