@@ -7,7 +7,6 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
     padding: 20px 230px; 
 }
 
@@ -62,44 +61,6 @@ header {
     border-radius: 4px;
     background-color: #BCFE65;
 }
-
-#search-container {
-    padding-top: 80px;
-}
-
-#search-bar {
-    padding: 10px;
-    width: 550px;
-    border: none;
-    border-bottom: 1px black solid;
-    font-size: 1rem;
-}
-
-#search-bar:focus{
-    outline: none;
-}
-
-#lupa {
-    font-size: 1.5rem;
-}
-
-#search-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 15px; 
-    width: 50px; 
-    height: 50px; 
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px black solid;
-    cursor: pointer; 
-  }
-
-  #search-btn:hover {
-    border-radius: 4px 4px 0px 0px;
-    background-color: #BCFE65;
-  }
 
   #search-title{
     text-align: left;

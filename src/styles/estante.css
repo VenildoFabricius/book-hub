@@ -1,0 +1,81 @@
+header{
+    display: flex;
+    align-items:end;
+    justify-content: space-between;
+    padding: 10px 0px; 
+}
+
+main {
+    padding: 0px 230px;
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+}
+
+#book-hub {
+    font-size: 1.4rem;
+    font-family: 'cocogoose';
+    padding-left: 5px;
+}
+
+.search-container {
+    padding-top: 0px;
+}
+
+#user-section{
+    display: flex;
+    padding: 50px 200px;
+    align-items: end;
+}
+
+#img-conteiner {
+    width: 120px; 
+    height: 150px; 
+}
+
+#img-conteiner img{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#username-display{
+    text-align: start;
+    padding-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-left: 40px;
+}
+
+#info-cards {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+.info-card {
+    border: 1px solid rgb(134, 134, 134);
+    border-radius: 10px;
+    width: 100px; 
+    height: 100px;
+    padding: 10px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 20px;
+}
+
+.info-card:hover{
+    background-color: #BCFE65;
+    cursor: pointer;
+}
+
+.num-cards {
+    font-size: 1.6rem;
+    font-weight: bold;
+}

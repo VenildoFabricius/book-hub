@@ -101,10 +101,13 @@ a {
 
 #cadast-link {
     text-decoration: underline;
+    color: inherit;
+  }
+  
+#cadast-link:hover {
+text-decoration: none;
+border-radius: 4px;
+background-color: #BCFE65;
 }
 
-#cadast-link:hover {
-    text-decoration: none;
-    border-radius: 4px;
-    background-color: #BCFE65;
-}
+

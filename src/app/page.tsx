@@ -23,9 +23,9 @@ export default function Home() {
           </div>
             <Image id= 'img-apres' src="/ilustracao.jpg" alt='Ilustração menina voando em livros' width={232} height={200}/>
         </div>
-        <div id='search-container'>
-          <input type="text" id='search-bar' placeholder='Encontre sua próxima história...' />
-          <button id='search-btn'><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa'/></button>
+        <div className='search-container'>
+          <input type="text" className='search-bar' placeholder='Encontre sua próxima história...' />
+          <button className='search-btn'><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa'/></button>
         </div>
 
         <p id='search-title'></p>

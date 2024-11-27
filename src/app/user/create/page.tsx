@@ -4,7 +4,7 @@ import "@/styles/login.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons'
 
-export default function Login() {
+export default function CreateUser() {
     return (
       <>
         <main>
