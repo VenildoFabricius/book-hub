@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Footer from "@/components/footer";
 import { Inter } from 'next/font/google';
 import FontAwesomeConfig from "./fontawesome";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   weight: ['100', '400', '700'],
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {children}
         <Footer />
+        <Toaster position="top-right"/> 
       </body>
     </html>
   );

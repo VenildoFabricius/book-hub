@@ -7,7 +7,7 @@ import ConexaoBD from "./conexao-bd";
 import {createSessionToken, deleteToken} from "@/utils/auth";
 import { boolean } from "zod";
 
-const arquivo = 'usuarios-db.json';
+const arquivo = 'users.json'; //variável com o nome do arquivo .json utilizado como "banco de dados" de usuários
 
 export interface LoginCredentials{
     email: string,
@@ -65,7 +65,7 @@ export async function login(data: LoginCredentials) {
     if(isMatch)
     {
         await createSessionToken({sub: user.id, email: user.email});
-        redirect('/main/listar');
+        redirect('/main');
     }else{
         return {error: 'Usuário ou senhas incorretos'}
     }

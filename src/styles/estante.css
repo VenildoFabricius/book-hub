@@ -24,6 +24,19 @@ main {
     padding-top: 0px;
 }
 
+.search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px; 
+    width: 50px; 
+    height: 50px; 
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px black solid;
+    cursor: pointer; 
+  }
+
 #user-section{
     display: flex;
     padding: 50px 200px;

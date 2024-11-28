@@ -1,7 +1,12 @@
-[{
-    "id": "",
-    "nome": "",
-    "email": "",
-    "senha": "",
-    "img-perfil": ""
-}]
+[
+  {
+    "id": "561a68fd-8725-414f-bbe6-09805c8a955f",
+    "email": "lara@gmail.com",
+    "password": "$2b$10$moIvkQuh1muLCPWgVBbpN.Z/y7EIFfMepNsZIY5bG2k4sga7IQ.GS"
+  },
+  {
+    "id": "23f7855e-cbbe-482a-9723-6ec82cab91e4",
+    "email": "venildo@gmail.com",
+    "password": "$2b$10$XVIKMPrGaSnGanbBRGI4y.xbnwMPPbkCRCrE9RCa40iNWTfwPKdYe"
+  }
+]
