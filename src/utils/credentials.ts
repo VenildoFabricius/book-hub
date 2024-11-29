@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import * as bcrypt from 'bcrypt'; //lib usada para armazenar a senha criptografada: npm i bcrypt
 import crypto from 'crypto';
 import ConexaoBD from "./conexao-bd";
-import {createSessionToken, deleteToken} from "@/utils/auth";
+import {createSessionToken} from "@/utils/auth";
 import { boolean } from "zod";
 
 const arquivo = 'users.json'; //variável com o nome do arquivo .json utilizado como "banco de dados" de usuários
@@ -34,20 +34,18 @@ export async function createUser(data: LoginCredentials){
     const usuariosBD = await ConexaoBD.retornaBD(arquivo);
     //Verifica se usuário já existe
     for (const user of usuariosBD) {
-        //Aqui usamos o for..of pois é sequencial
         if(user.email === email){
-            return {error: 'Usuário ou senha incorretos'}; //Ao invés de informar "usuário já encontrado"
+            return {error: 'Usuário ou senha incorretos'}; 
         }
     }
     //Nenhum user encontrado. Pode adicionar o novo no banco
     usuariosBD.push(novoUser);
-    await ConexaoBD.armazenaBD(arquivo,usuariosBD);
-    redirect('/user/login');//redireciona para a página de login
+    await ConexaoBD.armazenaBD(arquivo, usuariosBD);
+    redirect('/user/login'); //redireciona para a página de login
 }
 
 export async function login(data: LoginCredentials) {
     
-
     const email = data.email;
     const password = data.password;
 

@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import "@/styles/create.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';
 import {z} from "zod";
 import toast from 'react-hot-toast';
 import { LoginCredentials } from "@/utils/credentials";
@@ -77,4 +77,4 @@ export default function LoginForm() {
         </main>
       </>
     );
-    }
+}

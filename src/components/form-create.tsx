@@ -1,10 +1,10 @@
-'use client'; //Para usar a lib "toast", é necessário marcar o componente como "client"
+'use client'; 
 
 import Image from "next/image";
 import Link from "next/link";
 import "@/styles/login.css";
-import {z} from "zod"; //utilizado para apoio nas validações do front (npm i zod)
-import toast from 'react-hot-toast'; //(npm i react-hot-toast)
+import {z} from "zod"; 
+import toast from 'react-hot-toast'; 
 import {createUser, LoginCredentials} from "@/utils/credentials";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons'
@@ -13,8 +13,8 @@ import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons'
 const CreateUserSchema = z.object({
     email: z.string().trim().email('Formato de email incorreto'),
     confEmail: z.string().trim().email('Formato de email incorreto'),
-    password: z.string({message: 'Campo senha não pode estar vazio'}).trim().min(4, {message: 'Senha precisa ter 4 caracteres no mínimo'}),
-    confPassword: z.string({message: 'Insira uma confirmação de senha'}).trim().min(1, {message: 'Campo confirmação de senha não pode estar vazio'}),
+    password: z.string({message: 'Campo senha não pode estar vazio'}).trim().min(4, {message: 'Senha precisa ter 4 caracteres, no mínimo'}),
+    confPassword: z.string({message: 'Insira a confirmação da senha'}).trim().min(1, {message: 'Campo confirmação de senha não pode estar vazio'}),
 }).refine((data) => data.password === data.confPassword, {
     message: "Senhas não coincidem",
     path: ["confPassword"]

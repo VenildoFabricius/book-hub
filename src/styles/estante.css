@@ -1,13 +1,22 @@
-header{
+header {
     display: flex;
-    align-items:end;
+    align-items: center;
     justify-content: space-between;
-    padding: 10px 0px; 
+    padding-top: 20px;
 }
 
 main {
     padding: 0px 230px;
 }
+
+#estante {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 350px;
+    gap: 10px;
+    width: 100%;
+    margin: 0 auto;
+  }
 
 #logo {
     display: flex;
@@ -28,27 +37,39 @@ main {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 15px; 
-    width: 50px; 
-    height: 50px; 
+    padding: 10px 15px;
+    width: 50px;
+    height: 43px;
     background-color: transparent;
     border: none;
     border-bottom: 1px black solid;
-    cursor: pointer; 
-  }
+    cursor: pointer;
+}
 
-#user-section{
+#link-sair {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.1rem;
+    padding: 12px 20px;
+}
+
+#link-sair:hover {
+    background-color: #BCFE65;
+    border-radius: 4px;
+}
+
+#user-section {
     display: flex;
-    padding: 50px 200px;
+    padding: 50px 200px 50px;
     align-items: end;
 }
 
 #img-conteiner {
-    width: 120px; 
-    height: 150px; 
+    width: 120px;
+    height: 150px;
 }
 
-#img-conteiner img{
+#img-conteiner img {
     border: 1px solid black;
     border-radius: 10px;
     width: 100%;
@@ -57,7 +78,7 @@ main {
     object-position: center;
 }
 
-#username-display{
+#username-display {
     text-align: start;
     padding-bottom: 20px;
     font-size: 1.5rem;
@@ -74,16 +95,16 @@ main {
 .info-card {
     border: 1px solid rgb(134, 134, 134);
     border-radius: 10px;
-    width: 100px; 
+    width: 100px;
     height: 100px;
-    padding: 10px; 
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     margin-left: 20px;
 }
 
-.info-card:hover{
+.info-card:hover {
     background-color: #BCFE65;
     cursor: pointer;
 }
@@ -91,4 +112,29 @@ main {
 .num-cards {
     font-size: 1.6rem;
     font-weight: bold;
+}
+
+#dados-botoes {
+    display: flex;
+    align-items: center;
+}
+
+#botoes {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+}
+
+#botoes button {
+    padding: 3px 30px;
+    border: 1px solid rgb(134, 134, 134);
+    border-radius: 5px;
+    margin: 3px 0;
+    background-color: transparent;
+    font-size: 1rem;
+}
+
+#botoes button:hover {
+    background-color: #BCFE65;
+    cursor: pointer;
 }

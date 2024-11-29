@@ -6,11 +6,13 @@ type CardProps = {
     autor: string;
     ano: string;
     imagem: string;
+    descricao: string;
+    onClick: () => void; 
   };
 
-export default function Card({titulo, autor, ano, imagem}: CardProps){
+export default function Card({titulo, autor, ano, imagem, onClick}: CardProps){
     return (
-        <div className="card">
+        <div className="card" onClick={onClick}>
       <Image
         src={imagem || "/placeholder.jpg"} // Imagem padrão caso não tenha uma fornecida
         alt={`Capa do livro ${titulo}`}
@@ -30,4 +32,5 @@ Card.propTypes = {
     autor: PropTypes.string,
     ano: PropTypes.string,
     imagem: PropTypes.string,
+    descricao: PropTypes.string
   };

@@ -4,10 +4,11 @@ import '@/app/page.css'
 import '@/styles/Card.css'
 import Image from "next/image";
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-import axios from "axios"
+import axios from "axios";
 import { useState } from "react";
 import Card from '@/components/Card';
 
@@ -19,7 +20,9 @@ interface Livro {
     publishedDate?: string;
     imageLinks?: {
       thumbnail?: string;
+      medium?: string;
     };
+    description?: string;
   };
 }
 
@@ -38,7 +41,7 @@ export default function Home() {
     try {
       const resposta = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${busca}&maxResults=40`);
       setLivros(resposta.data.items || []);
-      
+
     } catch (error) {
       console.error("Erro ao buscar livros:", error);
       alert("Não foi possível buscar os livros. Tente novamente mais tarde.");
@@ -51,8 +54,12 @@ export default function Home() {
     }
   }
 
+  const selecionarLivro = (livro: Livro) => {
+    setLivroSelecionado(livro);
+  };
+
+
   return (
-    <>
       <main>
         <header>
           <Image src="/LogoBlack.png" alt='Logo do site BookHub' width={40} height={40} />
@@ -69,31 +76,60 @@ export default function Home() {
           </div>
           <img id='img-apres' src="/ilustracao.jpg" alt="Ilustração menina voando em livros" />
         </div>
+
         <div className='search-container'>
           <input type="text"
-          className='search-bar'
-          placeholder='Encontre sua próxima história...'
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
+            className='search-bar'
+            placeholder='Encontre sua próxima história...'
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
           <button className='search-btn' onClick={buscaLivros}><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa' /></button>
         </div>
 
-        {livros.length > 0 && <p id="search-title">Resultados da sua pesquisa</p>}
-
         <section id='search-results'>
-          {livros.map((item) => (
-            <Card
-              key={item.id}
-              titulo={item.volumeInfo.title}
-              autor={item.volumeInfo.authors?.join(", ") || "Autor desconhecido"}
-              ano={item.volumeInfo.publishedDate || "Data desconhecida"}
-              imagem={item.volumeInfo.imageLinks?.thumbnail || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista
-            />
-        ))}
+          {livroSelecionado ? (
+            <section id='detalhes'>
+
+              <div id='voltar'>
+                <button id='voltar-icone' onClick={() => setLivroSelecionado(null)}><FontAwesomeIcon icon={faArrowLeft} /></button>
+                <p id="voltar-msg">Voltar para a pesquisa</p>
+              </div>
+
+              <div className="detalhes-livro">
+                <img src={livroSelecionado.volumeInfo.imageLinks?.medium ||
+                  livroSelecionado.volumeInfo.imageLinks?.thumbnail ||
+                  "/SemCapa.png"}
+                  alt={livroSelecionado.volumeInfo.title}
+                />
+
+                <div id='det-texto'>
+                  <div id='det-dados'>
+                    <h3>{livroSelecionado.volumeInfo.title}</h3>
+                    <p>Autor(es): {livroSelecionado.volumeInfo.authors?.join(", ") || "Autor desconhecido"}</p>
+                    <p>Data de Publicação: {livroSelecionado.volumeInfo.publishedDate || "Data desconhecida"}</p>
+                  </div>
+                  <p id='det-descr'>{livroSelecionado.volumeInfo.description || "Descrição não disponível"}</p>
+                </div>
+
+              </div>
+            </section>
+
+          ) : (
+            livros.map((item) => (
+              <Card
+                key={item.id}
+                titulo={item.volumeInfo.title}
+                autor={item.volumeInfo.authors?.join(", ") || "Autor desconhecido"}
+                ano={item.volumeInfo.publishedDate || "Data desconhecida"}
+                imagem={item.volumeInfo.imageLinks?.thumbnail || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista
+                descricao=''
+                onClick={() => selecionarLivro(item)} // Passa o livro para o estado
+              />
+            ))
+          )}
         </section>
       </main>
-    </>
   );
 }
