@@ -1,8 +1,52 @@
-[{
-    "id": "",
-    "titulo": "",
-    "autor": "",
-    "data": "",
-    "img-capa": "",
-    "comentarios": ""
-}]
+[
+  {
+    "id": "un2nDQAAQBAJ",
+    "volumeInfo": {
+      "title": "Baby, It's Christmas & Hold Me, Cowboy",
+      "authors": [
+        "Susan Mallery",
+        "Maisey Yates"
+      ],
+      "publishedDate": "2017-10-31",
+      "imageLinks": {
+        "thumbnail": "http://books.google.com/books/content?id=un2nDQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "medium": "/placeholder.jpg"
+      },
+      "description": "’TIS THE SEASON Dr. Kelly Hall had lost all hope of ever having a family—until single father Tanner Malone burst into her hospital and asked her how to raise his newborn daughter. What else could she do, so soon before Christmas, but lend her expertise to the gorgeous contractor? His charming smiles and come-hither glances draw her like a moth to a flame, but she’s in no position to get involved with anyone. After a devastating heartbreak, Kelly has given up on happiness. Nonetheless, Kelly can’t deny the attraction…or the hope she’ll get the husband and family she’s always longed for. As the days move closer to Christmas, it’s clear to Kelly that Tanner —and his daughter—is what’s missing from her life. First published as Their Little Princess by Silhouette Books in 2000. FREE BONUS STORY INCLUDED IN THIS VOLUME! Hold Me, Cowboy by New York Times bestselling author Maisey Yates The last thing Madison West expected was to be stranded for Christmas, let alone snowed in with a cowboy who drives her wild. His proposal: twelve days of hot sex before Christmas! But will it ever be enough?"
+    },
+    "text": "hgjghjg"
+  },
+  {
+    "id": "TSLuAwAAQBAJ",
+    "volumeInfo": {
+      "title": "Internet & the birth of InfoCom industry. IT & Economic Performance",
+      "authors": [
+        "George Vousinas"
+      ],
+      "publishedDate": "2012-09-09",
+      "imageLinks": {
+        "thumbnail": "http://books.google.com/books/content?id=TSLuAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "medium": "/placeholder.jpg"
+      },
+      "description": "As Heraclitus said in the 4th century BC, \"Nothing is permanent, but change!\" Everyday life in the world has been touched and in some parts substantially altered by the advent of the Internet and the so called Information & Communication Technologies (ICTs). The usage of ICTs has become embedded within our societies. The influence and implications of this have an impact at a macro level in the way our governments, economies and businesses operate, and in our everyday lives. The true value of ICTs is summarized in the words of the Nobel prized economist Joseph Stiglitz: \"The new technologies have caused increases in productivity that will continue to make a huge difference in our living standards\""
+    },
+    "text": "oiiiiiii"
+  },
+  {
+    "id": "kZTUAgAAQBAJ",
+    "volumeInfo": {
+      "title": "The Red Army's Do-It-Yourself, Nazi-Bashing Guerrilla Warfare Manual",
+      "authors": [
+        "Lester Grau",
+        "Michael Gress"
+      ],
+      "publishedDate": "2011-05-28",
+      "imageLinks": {
+        "thumbnail": "http://books.google.com/books/content?id=kZTUAgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "medium": "/placeholder.jpg"
+      },
+      "description": "The WWII Soviet guerilla training manual that became an essential text for freedom fighters across the globe—complete with illustrations. When Germany invaded the Soviet Union during World War II, the Red Army began recruiting local partisans to help mount a resistance. This edition of The Partisan’s Companion is the last and best Red Army manual used to train these men to fight Nazi invaders. Besides field craft, it covers partisan tactics, German counter-guerrilla tactics, demolitions, German and Soviet weapons, scouting, camouflage, anti-tank warfare, and antiaircraft defense for squad and platoon-level instruction. It contains the Soviet lessons of two bitter years of war and provides a good look at the tactics and training of a mature partisan force. While this handbook was a vital part of Soviet victory over the Nazis, its usefulness outlived the Second World War. It was later used to train guerrilla groups in the developing world during their wars of national liberation in the 1950s–70s. Even the fedayeen guerrillas who fought US and coalition forces in Iraq relied on this manual for training, tactics, and general approach to combat. A selection of the Military Book Club."
+    },
+    "text": "aaaaaaaa"
+  }
+]
