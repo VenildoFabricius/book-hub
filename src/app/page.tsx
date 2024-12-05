@@ -14,17 +14,17 @@ import { useState } from "react";
 
 interface Livro {
   volumeInfo: {
-      industryIdentifiers?: {
-          type: string;
-          identifier: string;
-      }[];
-      title: string;
-      authors?: string[];
-      publishedDate?: string;
-      imageLinks?: {
-          thumbnail?: string
-      };
-      description?: string;
+    industryIdentifiers?: {
+      type: string;
+      identifier: string;
+    }[];
+    title: string;
+    authors?: string[];
+    publishedDate?: string;
+    imageLinks?: {
+      thumbnail?: string
+    };
+    description?: string;
   };
 }
 
@@ -54,7 +54,7 @@ export default function Home() {
       setIsLoading(false);  // Finaliza o estado de carregamento
     }
   };
-    
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       buscaLivros();
@@ -108,7 +108,7 @@ export default function Home() {
               </div>
 
               <div className="detalhes-livro">
-                <img src={livroSelecionado.volumeInfo.imageLinks?.thumbnail?.replace("zoom=1", "zoom=2") || "/SemCapa.png"} alt={livroSelecionado.volumeInfo.title} />
+                <img src={livroSelecionado.volumeInfo.imageLinks?.thumbnail || "/SemCapa.png"} alt={livroSelecionado.volumeInfo.title} />
 
                 <div id='det-texto'>
                   <div id='det-dados'>

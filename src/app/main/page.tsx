@@ -1,6 +1,6 @@
 "use client"
 
-import "@/styles/estante.css";
+import "@/styles/home.css";
 import Image from "next/image";
 import axios from "axios";
 import Card from '@/components/Card';
@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { logout } from "@/utils/auth";
+import { isSessionValid } from "@/utils/auth";
+import { addLivroEstante } from "@/utils/crud-db" 
 
 
 interface Livro {
@@ -32,24 +34,28 @@ interface Livro {
 export default function Pesquisa() {
     const searchParams = useSearchParams();
     const buscaParam = searchParams.get("busca") || "";  // Obtém o termo de busca da URL
+    const [usuario, setUsuario] = useState<string>(""); //Estado para pegar o email do usuario logado
     const [busca, setBusca] = useState(buscaParam);  // Declarar o estado de 'busca'
     const [livros, setLivros] = useState<Livro[]>([]); // Estado com tipagem para os resultados da busca
     const [livroSelecionado, setLivroSelecionado] = useState<Livro | null>(null);
+    const [isLoading, setIsLoading] = useState(false); // Estado para controlar a exibição do 'loading'
     const router = useRouter();
-    
+
     // useEffect para realizar a pesquisa caso haja um parâmetro de busca na URL
     useEffect(() => {
         // Só faz a busca quando o parâmetro de busca mudar
         if (busca) {
             buscaLivros();
         }
-    }, [busca]); // Executa a função sempre que 'busca' mudar
+    }, []);
 
     const buscaLivros = async () => {
         //caso o input esteja vazio, não faz a busca
         if (busca.trim() === "") {
             return;
         }
+
+        setIsLoading(true);  // Inicia o estado de carregamento
 
         try {
             const resposta = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(busca)}&maxResults=40`);
@@ -58,8 +64,22 @@ export default function Pesquisa() {
         } catch (error) {
             console.error("Erro ao buscar livros:", error);
             alert("Não foi possível buscar os livros. Tente novamente mais tarde.");
+        } finally {
+            setIsLoading(false);  // Finaliza o estado de carregamento
         }
     }
+
+    // Pegando o email do usuário logado
+    useEffect(() => {
+        async function fetchUsuario() {
+            const session = await isSessionValid(); //Chama a função isSessionValid para ober os dados do usuário
+            if (session && typeof session.email === 'string') { //Se o usuáio estiver logado
+                setUsuario(session.email); //Estado atualizado com o email do usuário
+            }
+        }
+
+        fetchUsuario(); //Chama a função fetchUsuario (acima). É chamada imediatamente para verificar a sessão do usuário assim que ele logar
+    }, []); //[] Garante que o useEffect seja executado somente uma vez para evitar chamadas desnecessárias a isSessionValid()
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
@@ -70,6 +90,11 @@ export default function Pesquisa() {
 
     const selecionarLivro = (livro: Livro) => {
         setLivroSelecionado(livro);
+    }
+
+    const addLivro = (usuario: string, livroSelecionado: Livro) => {
+        addLivroEstante(usuario, livroSelecionado);
+        alert('Livro adicionado à estante com sucesso!');
     }
 
     const minhaEstante = () => {
@@ -112,7 +137,7 @@ export default function Pesquisa() {
                     <img src="/avatar.jpg" alt="Foto de perfil do usuário" />
                 </div>
                 <div>
-                    <p id="username-display">Nome do Usuário</p>
+                    <p id="username-display">{usuario}</p>
                     <div id="info-cards">
                         <div className="info-card"><p>Todos</p><p className="num-cards">72</p></div>
                         <div className="info-card"><p>Lidos</p><p className="num-cards">58</p></div>
@@ -122,55 +147,59 @@ export default function Pesquisa() {
                 </div>
             </section>
 
-            <section id="pesq-estante">
-                {livroSelecionado ? (
-                    <section id='detalhes'>
+            {isLoading ? (
+                <h2 id='procurando'><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa' />   Procurando...</h2>
+            ) : (
+                <section id="pesq-estante">
+                    {livroSelecionado ? (
+                        <section id='detalhes'>
 
-                        <div id='voltar'>
-                            <button id='voltar-icone' onClick={() => setLivroSelecionado(null)}><FontAwesomeIcon icon={faArrowLeft} /></button>
-                            <p id="voltar-msg">Voltar para a pesquisa</p>
-                        </div>
-
-                        <div className="detalhes-livro">
-                            <img src={livroSelecionado.volumeInfo.imageLinks?.thumbnail?.replace("zoom=1", "zoom=2") ||
-                                "/SemCapa.png"}
-                                alt={livroSelecionado.volumeInfo.title}
-                            />
-
-                            <div id='det-texto'>
-                                <div id="dados-botoes">
-                                    <div id='det-dados'>
-                                        <h3>{livroSelecionado.volumeInfo.title}</h3>
-                                        <p>Autor(es): {livroSelecionado.volumeInfo.authors?.join(", ") || "Autor desconhecido"}</p>
-                                        <p>Data de Publicação: {livroSelecionado.volumeInfo.publishedDate || "Data desconhecida"}</p>
-                                    </div>
-                                    <div id='botoes'>
-                                        <button>Lido</button>
-                                        <button>Lendo</button>
-                                        <button>Quero Ler</button>
-                                    </div>
-                                </div>
-                                <p id='det-descr'>{livroSelecionado.volumeInfo.description || "Descrição não disponível"}</p>
+                            <div id='voltar'>
+                                <button id='voltar-icone' onClick={() => setLivroSelecionado(null)}><FontAwesomeIcon icon={faArrowLeft} /></button>
+                                <p id="voltar-msg">Voltar para a pesquisa</p>
                             </div>
 
-                        </div>
-                    </section>
+                            <div className="detalhes-livro">
+                                <img src={livroSelecionado.volumeInfo.imageLinks?.thumbnail ||
+                                    "/SemCapa.png"}
+                                    alt={livroSelecionado.volumeInfo.title}
+                                />
 
-                ) : (
-                    livros.map((item) => (
-                        <Card
-                            key={item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_13")?.identifier ||
-                                item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier}
-                            titulo={item.volumeInfo.title}
-                            autor={item.volumeInfo.authors?.join(", ") || "Autor desconhecido"}
-                            ano={item.volumeInfo.publishedDate || "Data desconhecida"}
-                            imagem={item.volumeInfo.imageLinks?.thumbnail || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista
-                            descricao=''
-                            onClick={() => selecionarLivro(item)} // Passa o livro para o estado
-                        />
-                    ))
-                )}
-            </section>
+                                <div id='det-texto'>
+                                    <div id="dados-botoes">
+                                        <div id='det-dados'>
+                                            <h3>{livroSelecionado.volumeInfo.title}</h3>
+                                            <p>Autor(es): {livroSelecionado.volumeInfo.authors?.join(", ") || "Autor desconhecido"}</p>
+                                            <p>Data de Publicação: {livroSelecionado.volumeInfo.publishedDate || "Data desconhecida"}</p>
+                                        </div>
+                                        <div id='botoes'>
+                                            <button onClick={() => addLivro(usuario, livroSelecionado)}>Lido</button>
+                                            <button>Lendo</button>
+                                            <button>Quero Ler</button>
+                                        </div>
+                                    </div>
+                                    <p id='det-descr'>{livroSelecionado.volumeInfo.description || "Descrição não disponível"}</p>
+                                </div>
+
+                            </div>
+                        </section>
+
+                    ) : (
+                        livros.map((item) => (
+                            <Card
+                                key={item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_13")?.identifier || // Identificador único: ISBN ou titulo do livro
+                                    item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier}
+                                titulo={item.volumeInfo.title}
+                                autor={item.volumeInfo.authors?.join(", ") || "Autor desconhecido"}
+                                ano={item.volumeInfo.publishedDate || "Data desconhecida"}
+                                imagem={item.volumeInfo.imageLinks?.thumbnail || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista capa na API
+                                descricao=''
+                                onClick={() => selecionarLivro(item)} // Passa o livro para o estado 'selecionado'
+                            />
+                        ))
+                    )}
+                </section>
+            )}
         </main>
     );
 }

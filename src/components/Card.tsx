@@ -14,7 +14,7 @@ export default function Card({ titulo, autor, ano, imagem, onClick }: CardProps)
   return (
     <div className="card" onClick={onClick}>
       <Image
-        src={imagem || "/placeholder.jpg"} // Imagem padrão caso não tenha uma fornecida
+        src={imagem || "/SemCapa.png"} // Imagem padrão caso não tenha uma fornecida
         alt={`Capa do livro ${titulo}`}
         width={128}
         height={192}

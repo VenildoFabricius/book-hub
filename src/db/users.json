@@ -2,17 +2,134 @@
   {
     "id": "561a68fd-8725-414f-bbe6-09805c8a955f",
     "email": "lara@gmail.com",
-    "password": "$2b$10$moIvkQuh1muLCPWgVBbpN.Z/y7EIFfMepNsZIY5bG2k4sga7IQ.GS"
+    "password": "$2b$10$moIvkQuh1muLCPWgVBbpN.Z/y7EIFfMepNsZIY5bG2k4sga7IQ.GS",
+    "estante": [
+      {
+        "capa": "http://books.google.com/books/content?id=q0ucAgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Dom Casmurro",
+        "autor": [
+          "Machado de Assis"
+        ],
+        "data": "2014-01-17",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9786586064537",
+        "capa": "http://books.google.com/books/content?id=zxwgEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "1984",
+        "autor": [
+          "George Orwell"
+        ],
+        "data": "2021-02-24",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9786557822364",
+        "capa": "http://books.google.com/books/content?id=cs8tEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Senhor das Moscas (Nova edição)",
+        "autor": [
+          "William Golding"
+        ],
+        "data": "2021-06-07",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9788525430892",
+        "capa": "http://books.google.com/books/content?id=0hZhAgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Morte na praia",
+        "autor": [
+          "Agatha Christie"
+        ],
+        "data": "2013-12-16",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9786556402758",
+        "capa": "http://books.google.com/books/content?id=8PIuEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Os irmãos Karamázov",
+        "autor": [
+          "Fiódor Dostoiévski"
+        ],
+        "data": "2021-05-14",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9788501116550",
+        "capa": "http://books.google.com/books/content?id=MAqQDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Cem anos de solidão",
+        "autor": [
+          "Gabriel García Márquez"
+        ],
+        "data": "2019-04-03",
+        "comentarios": ""
+      }
+    ]
   },
   {
     "id": "23f7855e-cbbe-482a-9723-6ec82cab91e4",
     "email": "venildo@gmail.com",
-    "password": "$2b$10$XVIKMPrGaSnGanbBRGI4y.xbnwMPPbkCRCrE9RCa40iNWTfwPKdYe"
-  },
-  {
-    "id": "4347dc83-0970-441b-9fed-fc78898685d7",
-    "email": "teste@teste.com",
-    "password": "$2b$10$Jdsd/XHnIruibf9VRKs8/eiHdr7fP6mDqLliZNTuI2mvmaLGqoUsG",
-    "estante": []
+    "password": "$2b$10$XVIKMPrGaSnGanbBRGI4y.xbnwMPPbkCRCrE9RCa40iNWTfwPKdYe",
+    "estante": [
+      {
+        "ISBN": "9786560050013",
+        "capa": "http://books.google.com/books/content?id=V-HoEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "O Silmarillion – J.R.R. Tolkien, editado por Christopher Tolkien e ilustrado por Ted Nasmith",
+        "autor": [
+          "J.R.R Tolkien"
+        ],
+        "data": "2023-12-25",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9789897776298",
+        "capa": "http://books.google.com/books/content?id=nGCIEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+        "titulo": "O Hobbit",
+        "autor": [
+          "J. R. R. Tolkien"
+        ],
+        "data": "2022-08-31",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9788595086333",
+        "capa": "http://books.google.com/books/content?id=R7KuDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "O Senhor dos Anéis: A Sociedade do Anel",
+        "autor": [
+          "J.R.R. Tolkien"
+        ],
+        "data": "2019-11-25",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9788595086326",
+        "capa": "http://books.google.com/books/content?id=UbKuDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "O Senhor dos Anéis: As duas torres",
+        "autor": [
+          "J.R.R. Tolkien"
+        ],
+        "data": "2019-11-25",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9788595086364",
+        "capa": "http://books.google.com/books/content?id=eVevDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Box Trilogia O Senhor dos Anéis",
+        "autor": [
+          "J.R.R. Tolkien"
+        ],
+        "data": "2019-11-25",
+        "comentarios": ""
+      },
+      {
+        "ISBN": "9788595085350",
+        "capa": "http://books.google.com/books/content?id=saiWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "As aventuras de Sherlock Holmes",
+        "autor": [
+          "Arthur Conan Doyle"
+        ],
+        "data": "2019-06-10",
+        "comentarios": ""
+      }
+    ]
   }
 ]
