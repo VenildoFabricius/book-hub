@@ -8,5 +8,11 @@
     "id": "23f7855e-cbbe-482a-9723-6ec82cab91e4",
     "email": "venildo@gmail.com",
     "password": "$2b$10$XVIKMPrGaSnGanbBRGI4y.xbnwMPPbkCRCrE9RCa40iNWTfwPKdYe"
+  },
+  {
+    "id": "4347dc83-0970-441b-9fed-fc78898685d7",
+    "email": "teste@teste.com",
+    "password": "$2b$10$Jdsd/XHnIruibf9VRKs8/eiHdr7fP6mDqLliZNTuI2mvmaLGqoUsG",
+    "estante": []
   }
 ]

@@ -33,7 +33,7 @@ a {
     font-size: 1rem;
 }
 
-#user-input:focus{
+#user-input:focus {
     outline: none;
 }
 
@@ -62,7 +62,7 @@ a {
     font-size: 1rem;
 }
 
-#psw-input:focus{
+#psw-input:focus {
     outline: none;
 }
 
@@ -86,7 +86,7 @@ a {
     width: 400px;
 }
 
-#login-btn:hover{
+#login-btn:hover {
     color: black;
     background-color: #BCFE65;
     cursor: pointer;

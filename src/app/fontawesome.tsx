@@ -3,6 +3,6 @@ import '@fortawesome/fontawesome-svg-core';
 
 config.autoAddCss = false;
 
-export default function FontAwesomeConfig(){
+export default function FontAwesomeConfig() {
     return null;
 }

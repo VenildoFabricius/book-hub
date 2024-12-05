@@ -1,20 +1,20 @@
-'use client'; 
+'use client';
 
 import Image from "next/image";
 import Link from "next/link";
 import "@/styles/login.css";
-import {z} from "zod"; 
-import toast from 'react-hot-toast'; 
-import {createUser, LoginCredentials} from "@/utils/credentials";
+import { z } from "zod";
+import toast from 'react-hot-toast';
+import { createUser, LoginCredentials } from "@/utils/credentials";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
 //CreateUserSchema é utilizado para as regras de validação do zod, para os campos de createUser
 const CreateUserSchema = z.object({
     email: z.string().trim().email('Formato de email incorreto'),
     confEmail: z.string().trim().email('Formato de email incorreto'),
-    password: z.string({message: 'Campo senha não pode estar vazio'}).trim().min(4, {message: 'Senha precisa ter 4 caracteres, no mínimo'}),
-    confPassword: z.string({message: 'Insira a confirmação da senha'}).trim().min(1, {message: 'Campo confirmação de senha não pode estar vazio'}),
+    password: z.string({ message: 'Campo senha não pode estar vazio' }).trim().min(4, { message: 'Senha precisa ter 4 caracteres, no mínimo' }),
+    confPassword: z.string({ message: 'Insira a confirmação da senha' }).trim().min(1, { message: 'Campo confirmação de senha não pode estar vazio' }),
 }).refine((data) => data.password === data.confPassword, {
     message: "Senhas não coincidem",
     path: ["confPassword"]
@@ -35,7 +35,7 @@ export default function CreateUserForm() {
 
         const result = CreateUserSchema.safeParse(createUserData);
 
-        if(!result.success){
+        if (!result.success) {
             let errorMsg = "";
 
             //Quando existe mais de um erro, acumulam-se todas as mensagens de erro para mostrar somente uma
@@ -50,7 +50,7 @@ export default function CreateUserForm() {
         //Chama o Server Action
         const retorno = await createUser(createUserData as LoginCredentials);
 
-        if(retorno){
+        if (retorno) {
             toast.error(retorno.error);
             return;
         }
@@ -58,44 +58,44 @@ export default function CreateUserForm() {
     }
 
     return (
-      <>
-        <main>
-            <Link href={'/'}>
-                <Image src="/LogoBlack.png" alt='Logo do site BookHub' width={90} height={80}/>
-                <h2 id='book-hub'>BookHub</h2>
-            </Link>
+        <>
+            <main>
+                <Link href={'/'}>
+                    <Image src="/LogoBlack.png" alt='Logo do site BookHub' width={90} height={80} />
+                    <h2 id='book-hub'>BookHub</h2>
+                </Link>
 
-            <form className='login-form' action={createUserClient}>
+                <form className='login-form' action={createUserClient}>
 
-            <div className='user-container'>
-                <input type="text" id='user-input' name='email' placeholder='Digite o seu Email' required/>
-                <FontAwesomeIcon icon={faEnvelope} id='user-icon'/>
-            </div>
+                    <div className='user-container'>
+                        <input type="text" id='user-input' name='email' placeholder='Digite o seu Email' required />
+                        <FontAwesomeIcon icon={faEnvelope} id='user-icon' />
+                    </div>
 
-            <div className='user-container'>
-                <input type="text" id='user-input' name='conf-email' placeholder='Confirme o seu Email' required/>
-                <FontAwesomeIcon icon={faEnvelope} id='user-icon'/>
-            </div>
+                    <div className='user-container'>
+                        <input type="text" id='user-input' name='conf-email' placeholder='Confirme o seu Email' required />
+                        <FontAwesomeIcon icon={faEnvelope} id='user-icon' />
+                    </div>
 
-            <div className='psw-container'>
-                <input type="password" id='psw-input' name='password' placeholder='Digite a sua Senha' required/>
-                <FontAwesomeIcon icon={faLock} id='psw-icon'/>
-            </div>
+                    <div className='psw-container'>
+                        <input type="password" id='psw-input' name='password' placeholder='Digite a sua Senha' required />
+                        <FontAwesomeIcon icon={faLock} id='psw-icon' />
+                    </div>
 
-            <div className='psw-container'>
-                <input type="password" id='psw-input' name='conf-password' placeholder='Confirme a sua Senha' required/>
-                <FontAwesomeIcon icon={faLock} id='psw-icon'/>
-            </div>
+                    <div className='psw-container'>
+                        <input type="password" id='psw-input' name='conf-password' placeholder='Confirme a sua Senha' required />
+                        <FontAwesomeIcon icon={faLock} id='psw-icon' />
+                    </div>
 
-            <button id="login-btn">Cadastrar</button>
+                    <button id="login-btn">Cadastrar</button>
 
-            <div id="cadast-container">
-                <p>Já tem uma conta?</p>
-                <Link id="cadast-link" href={'/user/login'}>Entrar</Link>
-            </div>
+                    <div id="cadast-container">
+                        <p>Já tem uma conta?</p>
+                        <Link id="cadast-link" href={'/user/login'}>Entrar</Link>
+                    </div>
 
-            </form>
-        </main>
-      </>
+                </form>
+            </main>
+        </>
     );
-  }
+}

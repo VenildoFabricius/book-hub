@@ -1,45 +1,58 @@
 "use client"
 
 import "@/styles/estante.css";
-import '@/styles/Card.css'
 import Image from "next/image";
-import Link from 'next/link';
+import axios from "axios";
+import Card from '@/components/Card';
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import axios from "axios";
-import { useState } from "react";
-import Card from '@/components/Card';
+import { logout } from "@/utils/auth";
+
 
 interface Livro {
-    id: string;
     volumeInfo: {
+        industryIdentifiers?: {
+            type: string;
+            identifier: string;
+        }[];
         title: string;
         authors?: string[];
         publishedDate?: string;
         imageLinks?: {
-            thumbnail?: string;
-            medium?: string;
+            thumbnail?: string
         };
         description?: string;
     };
 }
 
-export default function Estante() {
 
-    const [busca, setBusca] = useState(""); // Estado para o input de busca
+export default function Pesquisa() {
+    const searchParams = useSearchParams();
+    const buscaParam = searchParams.get("busca") || "";  // Obtém o termo de busca da URL
+    const [busca, setBusca] = useState(buscaParam);  // Declarar o estado de 'busca'
     const [livros, setLivros] = useState<Livro[]>([]); // Estado com tipagem para os resultados da busca
     const [livroSelecionado, setLivroSelecionado] = useState<Livro | null>(null);
+    const router = useRouter();
+    
+    // useEffect para realizar a pesquisa caso haja um parâmetro de busca na URL
+    useEffect(() => {
+        // Só faz a busca quando o parâmetro de busca mudar
+        if (busca) {
+            buscaLivros();
+        }
+    }, [busca]); // Executa a função sempre que 'busca' mudar
 
     const buscaLivros = async () => {
-        //caso o input esteja vazio
+        //caso o input esteja vazio, não faz a busca
         if (busca.trim() === "") {
-            alert("Por favor, insira o nome de um livro.");
             return;
         }
 
         try {
-            const resposta = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${busca}&sortBy=relevance&maxResults=40`);
+            const resposta = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(busca)}&maxResults=40`);
             setLivros(resposta.data.items || []);
 
         } catch (error) {
@@ -50,13 +63,24 @@ export default function Estante() {
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
+            router.push(`/main?busca=${encodeURIComponent(busca)}`);
             buscaLivros();
         }
     }
 
     const selecionarLivro = (livro: Livro) => {
         setLivroSelecionado(livro);
-    };
+    }
+
+    const minhaEstante = () => {
+        router.push('/main/estante');
+    }
+
+    const finalizaSessao = async () => {
+        await logout();
+        router.push('/');
+    }
+
 
     return (
         <main>
@@ -77,7 +101,10 @@ export default function Estante() {
                     <button className='search-btn' onClick={buscaLivros}><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa' /></button>
                 </div>
 
-                <a href="#" id="link-sair">Sair</a>
+                <div>
+                    <a href="#" className="link" onClick={minhaEstante}>Minha Estante</a>
+                    <a href="#" className="link" onClick={finalizaSessao}>Sair</a>
+                </div>
             </header>
 
             <section id="user-section">
@@ -95,7 +122,7 @@ export default function Estante() {
                 </div>
             </section>
 
-            <section id="estante">
+            <section id="pesq-estante">
                 {livroSelecionado ? (
                     <section id='detalhes'>
 
@@ -105,8 +132,7 @@ export default function Estante() {
                         </div>
 
                         <div className="detalhes-livro">
-                            <img src={livroSelecionado.volumeInfo.imageLinks?.medium ||
-                                livroSelecionado.volumeInfo.imageLinks?.thumbnail ||
+                            <img src={livroSelecionado.volumeInfo.imageLinks?.thumbnail?.replace("zoom=1", "zoom=2") ||
                                 "/SemCapa.png"}
                                 alt={livroSelecionado.volumeInfo.title}
                             />
@@ -133,7 +159,8 @@ export default function Estante() {
                 ) : (
                     livros.map((item) => (
                         <Card
-                            key={item.id}
+                            key={item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_13")?.identifier ||
+                                item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier}
                             titulo={item.volumeInfo.title}
                             autor={item.volumeInfo.authors?.join(", ") || "Autor desconhecido"}
                             ano={item.volumeInfo.publishedDate || "Data desconhecida"}

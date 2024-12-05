@@ -6,17 +6,8 @@ header {
 }
 
 main {
-    padding: 0px 230px;
+    padding: 0 230px 5%;
 }
-
-#estante {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-auto-rows: 350px;
-    gap: 10px;
-    width: 100%;
-    margin: 0 auto;
-  }
 
 #logo {
     display: flex;
@@ -27,6 +18,10 @@ main {
     font-size: 1.4rem;
     font-family: 'cocogoose';
     padding-left: 5px;
+}
+
+#procurando {
+    margin-top: 8%;
 }
 
 .search-container {
@@ -46,14 +41,14 @@ main {
     cursor: pointer;
 }
 
-#link-sair {
+.link {
     text-decoration: none;
     color: inherit;
     font-size: 1.1rem;
     padding: 12px 20px;
 }
 
-#link-sair:hover {
+.link:hover {
     background-color: #BCFE65;
     border-radius: 4px;
 }
@@ -114,6 +109,86 @@ main {
     font-weight: bold;
 }
 
+#pesq-estante {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 350px;
+    gap: 10px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    width: 95%;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #fafafa;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 60%;
+    object-fit: contain;
+    border-radius: 3px;
+}
+
+.card h3 {
+    font-size: 1em;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+#detalhes {
+    display: flex;
+    flex-direction: column;
+}
+
+#voltar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#voltar-icone {
+    padding: 7px 12px;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+}
+
+#voltar-icone:hover {
+    border-radius: 4px;
+    background-color: #BCFE65;
+    cursor: pointer;
+}
+
+#voltar-msg {
+    font-size: 1.1rem;
+}
+
+.detalhes-livro {
+    display: flex;
+}
+
 #dados-botoes {
     display: flex;
     align-items: center;
@@ -137,4 +212,30 @@ main {
 #botoes button:hover {
     background-color: #BCFE65;
     cursor: pointer;
+}
+
+#det-dados {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: left;
+    width: 70%;
+    padding: 10px;
+    margin-left: 20px;
+}
+
+#det-descr {
+    text-align: justify;
+    margin: 20px 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.6;
+    overflow-y: auto;
+    height: 270px;
+    padding: 10px;
+}
+
+.detalhes-livro img {
+    height: 380px;
+    object-fit: contain;
 }

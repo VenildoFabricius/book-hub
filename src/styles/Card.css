@@ -4,7 +4,7 @@
   grid-auto-rows: 350px;
   gap: 10px;
   width: 75%;
-  margin: 2% auto;
+  margin: 1% auto 4%;
 }
 
 .card {
@@ -44,63 +44,4 @@
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   line-clamp: 2;
-}
-
-#detalhes {
-  display: flex;
-  flex-direction: column;
-}
-
-
-#voltar {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-#voltar-icone {
-  padding: 7px 12px;
-  border: none;
-  background-color: transparent;
-  font-size: 20px;
-}
-
-#voltar-icone:hover {
-  border-radius: 4px;
-  background-color: #BCFE65;
-  cursor: pointer;
-}
-
-#voltar-msg {
-  font-size: 1.1rem;
-}
-
-.detalhes-livro {
-  display: flex;
-}
-
-#det-dados {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  text-align: left;
-  width: 70%;
-  padding: 10px;
-  margin-left: 20px;
-}
-
-#det-descr {
-  text-align: justify;
-  margin: 20px 20px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  line-height: 1.6;
-  overflow-y: auto;
-  height: 200px;
-  padding: 10px;
-}
-
-.detalhes-livro img {
-  height: 320px;
-  object-fit: contain;
 }

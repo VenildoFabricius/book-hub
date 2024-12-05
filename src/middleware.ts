@@ -13,7 +13,8 @@ export const config = {
 const publicRoutes = [
     '/',
     '/user/login',
-    '/user/create'
+    '/user/create',
+    '/ilustracao.jpg'
 ];
 
 export async function middleware(req: NextRequest){

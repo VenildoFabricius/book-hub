@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import Head from 'next/head';
 import Footer from "@/components/footer";
@@ -17,11 +16,7 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="pt-br">
       <Head>
@@ -32,7 +27,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {children}
         <Footer />
-        <Toaster position="top-right"/> 
+        <Toaster position="top-right" />
       </body>
     </html>
   );
