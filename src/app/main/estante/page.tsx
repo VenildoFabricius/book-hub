@@ -59,7 +59,7 @@ export default function Estante() {
 
     const selecionarLivro = (livro: CardProps) => {
         setLivroSelecionado(livro);
-      };
+    };
 
     const minhaEstante = () => {
         router.push('/main/estante');
@@ -112,14 +112,47 @@ export default function Estante() {
             </section>
 
             <section id="estante">
-                {livros.map((item) => (
-                    <CardEstante
-                        key={item.ISBN}
-                        titulo={item.titulo}
-                        capa={item.capa || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista
-                        onClick={() => selecionarLivro(item)} // Passa o livro para o estado
-                    />
-                ))}
+                {livroSelecionado ? (
+                    <section id='detalhes'>
+
+                    <div id='voltar'>
+                        <button id='voltar-icone' onClick={() => setLivroSelecionado(null)}><FontAwesomeIcon icon={faArrowLeft} /></button>
+                        <p id="voltar-msg">Voltar para a minha estante</p>
+                    </div>
+
+                    <div className="detalhes-livro">
+                        <img src={livroSelecionado.capa ||
+                            "/SemCapa.png"}
+                            alt={livroSelecionado.titulo}
+                        />
+
+                        <div id='det-texto'>
+                            <div id="dados-botoes">
+                                <div id='det-dados'>
+                                    <h3>{livroSelecionado.titulo}</h3>
+                                    <p>Autor(es): {livroSelecionado.autor || "Autor desconhecido"}</p>
+                                    <p>Data de Publicação: {livroSelecionado.data || "Data desconhecida"}</p>
+                                </div>
+                                <div id='botoes'>
+                                    <button>Editar</button>
+                                    <button>Excluir</button>
+                                </div>
+                            </div>
+                            <p id='det-descr'>{livroSelecionado.comentarios}</p>
+                        </div>
+
+                    </div>
+                </section>
+                ) : (
+                    livros.map((item) => (
+                        <CardEstante
+                            key={item.ISBN}
+                            titulo={item.titulo}
+                            capa={item.capa || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista
+                            onClick={() => selecionarLivro(item)} // Passa o livro para o estado 'selecionado'
+                        />
+                    ))
+                )}
             </section>
         </main>
     );

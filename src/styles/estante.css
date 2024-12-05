@@ -234,6 +234,8 @@ main {
     overflow-y: auto;
     height: 270px;
     padding: 10px;
+    background-color: rgba(245, 225, 220, 0.404);
+    color: black;
 }
 
 .detalhes-livro img {

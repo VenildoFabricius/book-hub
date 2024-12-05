@@ -118,15 +118,6 @@ main {
     margin: 0 auto;
 }
 
-#estante {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-auto-rows: 350px;
-    gap: 10px;
-    width: 100%;
-    margin: 0 auto;
-}
-
 .card {
     border: 1px solid #ccc;
     padding: 15px;

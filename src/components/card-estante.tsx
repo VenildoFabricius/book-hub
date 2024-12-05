@@ -5,6 +5,9 @@ export interface CardProps {
   ISBN?: string;
   capa: string;
   titulo: string;
+  autor?: string,
+  data?: string,
+  comentarios?: string
   onClick: () => void;
 };
 
@@ -25,5 +28,7 @@ export default function CardEstante({ titulo, capa, onClick }: CardProps) {
 CardEstante.propTypes = {
   ISBN: PropTypes.string,
   capa: PropTypes.string,
-  titulo: PropTypes.string
+  titulo: PropTypes.string,
+  autor: PropTypes.string,
+  data: PropTypes.string
 };
