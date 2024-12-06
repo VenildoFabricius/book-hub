@@ -5,25 +5,6 @@
     "password": "$2b$10$moIvkQuh1muLCPWgVBbpN.Z/y7EIFfMepNsZIY5bG2k4sga7IQ.GS",
     "estante": [
       {
-        "capa": "http://books.google.com/books/content?id=q0ucAgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "Dom Casmurro",
-        "autor": [
-          "Machado de Assis"
-        ],
-        "data": "2014-01-17",
-        "comentarios": ""
-      },
-      {
-        "ISBN": "9786586064537",
-        "capa": "http://books.google.com/books/content?id=zxwgEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "1984",
-        "autor": [
-          "George Orwell"
-        ],
-        "data": "2021-02-24",
-        "comentarios": ""
-      },
-      {
         "ISBN": "9786557822364",
         "capa": "http://books.google.com/books/content?id=cs8tEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "titulo": "Senhor das Moscas (Nova edição)",
@@ -62,28 +43,6 @@
         ],
         "data": "2019-04-03",
         "comentarios": ""
-      },
-      {
-        "ISBN": "9788550304205",
-        "capa": "http://books.google.com/books/content?id=pKaWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "Star vs As Forças do Mal - O Livro Mágico dos Feitiços",
-        "autor": [
-          "Daron Nefcy"
-        ],
-        "data": "2019-05-07",
-        "comentarios": "",
-        "categoria": "Quero Ler"
-      },
-      {
-        "ISBN": "9781437934359",
-        "capa": "http://books.google.com/books/content?id=kk2x38UcfhIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "STAR-TIDES and Starfish Networks",
-        "autor": [
-          "Linton Wells"
-        ],
-        "data": "2010-10",
-        "comentarios": "",
-        "categoria": "Lidos"
       }
     ]
   },

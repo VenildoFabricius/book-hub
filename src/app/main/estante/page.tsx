@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { logout } from "@/utils/auth";
 import { isSessionValid } from "@/utils/auth";
 import { listarLivros } from "@/utils/crud-db";
+import { excluirLivros } from "@/utils/crud-db";
 
 
 export default function Estante() {
@@ -57,6 +58,22 @@ export default function Estante() {
         if (categoriaSelecionada === 'Todos') return true;
         return livro.categoria === categoriaSelecionada;
     });
+
+    //Função para excluir um livro
+    const ExcluirLivro = async (isbn: string) => {
+        try{
+            await excluirLivros(usuario, isbn);
+            alert("Livro excluído com sucesso!")
+            //Atualiza a lista de livros
+            const livrosAtualizados = await listarLivros(usuario);
+            setLivros(livrosAtualizados);
+            setLivroSelecionado(null); //Volta para a estante
+        }
+        catch(error){
+            alert("Não foi possível excluir o livro.");
+        }
+
+    };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
@@ -154,7 +171,7 @@ export default function Estante() {
                                 </div>
                                 <div id='botoes'>
                                     <button>Editar</button>
-                                    <button>Excluir</button>
+                                    <button onClick={() => ExcluirLivro(livroSelecionado?.ISBN!)}>Excluir</button>
                                 </div>
                             </div>
                             <p id='det-descr'>{livroSelecionado.comentarios}</p>

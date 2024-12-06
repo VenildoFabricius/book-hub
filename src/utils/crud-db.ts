@@ -74,3 +74,18 @@ export async function listarLivros(usuario: string) {
 
     return livrosEstante;
 }
+
+// DELETE
+export async function excluirLivros (usuario: string, isbn: string) {
+    const userData = await ConexaoBD.retornaBD(arquivo);
+    const user = userData.find(user => user.email === usuario);
+
+    //Procura o livro pelo ISBN
+    const indexLivro = user.estante.findIndex((livro: any) => livro.ISBN === isbn);
+
+    //Remove o Livro da estante
+    user.estante.splice(indexLivro, 1);
+
+    //Salva as alterações no json
+    await ConexaoBD.armazenaBD(arquivo, userData)
+}
