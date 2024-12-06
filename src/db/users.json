@@ -119,28 +119,6 @@
     "password": "$2b$10$dHA1SQrBSdzfhJh.6aJfYuaN1Smo0fz/XX.vlw7bpeK5s23I/5eDO",
     "estante": [
       {
-        "ISBN": "9781291069280",
-        "capa": "http://books.google.com/books/content?id=TSLuAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "Internet & the birth of InfoCom industry. IT & Economic Performance",
-        "autor": [
-          "George Vousinas"
-        ],
-        "data": "2012-09-09",
-        "comentarios": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-        "categoria": "Lidos"
-      },
-      {
-        "ISBN": "9781427640093",
-        "capa": "http://books.google.com/books/content?id=y25WAgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "How Aliens Do It",
-        "autor": [
-          "Judith Shimkus"
-        ],
-        "data": "2009",
-        "comentarios": "",
-        "categoria": "Lidos"
-      },
-      {
         "ISBN": "9781312074569",
         "capa": "http://books.google.com/books/content?id=BqydBgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "titulo": "It's a knowing daily journal VII",
@@ -148,7 +126,7 @@
           "Author Melissa White"
         ],
         "data": "2014-04-06",
-        "comentarios": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "comentarios": "teste",
         "categoria": "Lidos"
       }
     ]
