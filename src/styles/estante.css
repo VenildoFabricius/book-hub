@@ -242,3 +242,66 @@ main {
     height: 380px;
     object-fit: contain;
 }
+
+
+#det-texto{
+    width: 70%;
+}
+
+#det-descr {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    padding: 15px;
+  }
+  
+  .comentario-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    resize: none;
+  }
+  
+  .comentario-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .salvar-btn,
+  .cancelar-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+  }
+  
+  .salvar-btn {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .salvar-btn:hover {
+    background-color: #227926;
+  }
+  
+  .cancelar-btn {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .cancelar-btn:hover {
+    background-color: #ad2826;
+  }
+  
+  .comentario {
+    font-style: italic;
+    color: #666;
+  }
+  
