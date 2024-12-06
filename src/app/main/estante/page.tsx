@@ -19,6 +19,7 @@ export default function Estante() {
     const [usuario, setUsuario] = useState<string>(""); //Estado para pegar o email do usuario logado
     const [livros, setLivros] = useState<CardProps[]>([]);
     const [livroSelecionado, setLivroSelecionado] = useState<CardProps | null>(null); // Estado do livro selecionado
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState<string>('Todos'); // Categoria inicial: "Todos"
     const router = useRouter();
 
     const buscaLivros = async () => {
@@ -50,6 +51,12 @@ export default function Estante() {
 
         fetchLivros();
     }, [usuario]);
+
+    // Filtra os livros de acordo com a categoria selecionada
+    const livrosFiltrados = livros.filter(livro => {
+        if (categoriaSelecionada === 'Todos') return true;
+        return livro.categoria === categoriaSelecionada;
+    });
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
@@ -103,10 +110,22 @@ export default function Estante() {
                 <div>
                     <p id="username-display">{usuario}</p>
                     <div id="info-cards">
-                        <div className="info-card"><p>Todos</p><p className="num-cards">72</p></div>
-                        <div className="info-card"><p>Lidos</p><p className="num-cards">58</p></div>
-                        <div className="info-card"><p>Lendo</p><p className="num-cards">2</p></div>
-                        <div className="info-card"><p>Quero Ler</p><p className="num-cards">12</p></div>
+                        <div className="info-card" onClick={() => setCategoriaSelecionada('Todos')}>
+                            <p>Todos</p>
+                            <p className="num-cards">{livros.length}</p>
+                        </div>
+                        <div className="info-card" onClick={() => setCategoriaSelecionada('Lidos')}>
+                            <p>Lidos</p>
+                            <p className="num-cards">{livros.filter(livro => livro.categoria === 'Lidos').length}</p>
+                        </div>
+                        <div className="info-card" onClick={() => setCategoriaSelecionada('Lendo')}>
+                            <p>Lendo</p>
+                            <p className="num-cards">{livros.filter(livro => livro.categoria === 'Lendo').length}</p>
+                        </div>
+                        <div className="info-card" onClick={() => setCategoriaSelecionada('Quero Ler')}>
+                            <p>Quero Ler</p>
+                            <p className="num-cards">{livros.filter(livro => livro.categoria === 'Quero Ler').length}</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -144,11 +163,12 @@ export default function Estante() {
                     </div>
                 </section>
                 ) : (
-                    livros.map((item) => (
+                    livrosFiltrados.map((item) => (
                         <CardEstante
                             key={item.ISBN}
                             titulo={item.titulo}
                             capa={item.capa || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista
+                            categoria={item.categoria}
                             onClick={() => selecionarLivro(item)} // Passa o livro para o estado 'selecionado'
                         />
                     ))

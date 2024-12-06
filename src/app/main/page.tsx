@@ -38,6 +38,11 @@ export default function Pesquisa() {
     const [busca, setBusca] = useState(buscaParam);  // Declarar o estado de 'busca'
     const [livros, setLivros] = useState<Livro[]>([]); // Estado com tipagem para os resultados da busca
     const [livroSelecionado, setLivroSelecionado] = useState<Livro | null>(null);
+
+    const [todos, setTodos] = useState<Livro[]>([]); // Todos os livros
+    const [lidos, setLidos] = useState<Livro[]>([]); // Livros lidos
+    const [lendo, setLendo] = useState<Livro[]>([]); // Livros que estão sendo lidos
+    const [queroLer, setQueroLer] = useState<Livro[]>([]); // Livros que o usuário quer ler
     const [isLoading, setIsLoading] = useState(false); // Estado para controlar a exibição do 'loading'
     const router = useRouter();
 
@@ -92,10 +97,49 @@ export default function Pesquisa() {
         setLivroSelecionado(livro);
     }
 
-    const addLivro = (usuario: string, livroSelecionado: Livro) => {
-        addLivroEstante(usuario, livroSelecionado);
-        alert('Livro adicionado à estante com sucesso!');
-    }
+    const addToLidos = (livro: Livro) => {
+        if (!lidos.includes(livro)) {
+            setLidos((prev) => [...prev, livro]); // Adiciona o livro a "Lidos"
+    
+            if (usuario) {
+                // Adiciona o livro à estante com as duas categorias, mas verifica se ele já está na estante
+                addLivroEstante(usuario, livro, "Lidos")
+                    .then(() => alert("Livro adicionado à estante: 'Lidos'"))
+                    .catch((error) => console.error("Erro ao adicionar livro à estante:", error));
+            }
+        }
+    };
+
+    const addToLendo = (livro: Livro) => {
+        if (!lendo.includes(livro)) {
+            setLendo((prev) => [...prev, livro]); // Adiciona o livro a "Lendo"
+    
+            if (usuario) {
+                // Adiciona o livro à estante com as duas categorias, mas verifica se ele já está na estante
+                addLivroEstante(usuario, livro, "Lendo")
+                    .then(() => alert("Livro adicionado à estante: 'Lendo'"))
+                    .catch((error) => console.error("Erro ao adicionar livro à estante:", error));
+            }
+        }
+    };
+
+    const addToQueroLer = (livro: Livro) => {
+        if (!queroLer.includes(livro)) {
+            setQueroLer((prev) => [...prev, livro]); // Adiciona o livro a "Quero Ler"
+    
+            if (usuario) {
+                // Adiciona o livro à estante com as duas categorias, mas verifica se ele já está na estante
+                addLivroEstante(usuario, livro, "Quero Ler")
+                    .then(() => alert("Livro adicionado à estante: 'Quero Ler'"))
+                    .catch((error) => console.error("Erro ao adicionar livro à estante:", error));
+            }
+        }
+    };
+
+    //const addLivro = (usuario: string, livroSelecionado: Livro) => {
+    //    addLivroEstante(usuario, livroSelecionado);
+    //    alert('Livro adicionado à estante com sucesso!');
+    //}
 
     const minhaEstante = () => {
         router.push('/main/estante');
@@ -173,9 +217,9 @@ export default function Pesquisa() {
                                             <p>Data de Publicação: {livroSelecionado.volumeInfo.publishedDate || "Data desconhecida"}</p>
                                         </div>
                                         <div id='botoes'>
-                                            <button onClick={() => addLivro(usuario, livroSelecionado)}>Lido</button>
-                                            <button>Lendo</button>
-                                            <button>Quero Ler</button>
+                                            <button onClick={() => { addToLidos(livroSelecionado!); }}>Lido</button>
+                                            <button onClick={() => { addToLendo(livroSelecionado!); }}>Lendo</button>
+                                            <button onClick={() => { addToQueroLer(livroSelecionado!); }}>Quero Ler</button>
                                         </div>
                                     </div>
                                     <p id='det-descr'>{livroSelecionado.volumeInfo.description || "Descrição não disponível"}</p>

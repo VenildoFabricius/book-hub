@@ -7,7 +7,8 @@ export interface CardProps {
   titulo: string;
   autor?: string,
   data?: string,
-  comentarios?: string
+  comentarios?: string, 
+  categoria:string
   onClick: () => void;
 };
 
