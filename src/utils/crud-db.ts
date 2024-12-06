@@ -75,27 +75,17 @@ export async function listarLivros(usuario: string) {
     return livrosEstante;
 }
 
+// DELETE
+export async function excluirLivros (usuario: string, isbn: string) {
+    const userData = await ConexaoBD.retornaBD(arquivo);
+    const user = userData.find(user => user.email === usuario);
 
-export async function editarLivros(usuario: string, isbn: string, novoComentario: string) {
-    try {
-        
-        const userData = await ConexaoBD.retornaBD(arquivo);
+    //Procura o livro pelo ISBN
+    const indexLivro = user.estante.findIndex((livro: any) => livro.ISBN === isbn);
 
-        const user = userData.find((u: any) => u.email === usuario);
-        if (!user) {
-            throw new Error(`Usuário com email ${usuario} não encontrado.`);
-        }
+    //Remove o Livro da estante
+    user.estante.splice(indexLivro, 1);
 
-        const livro = user.estante.find((l: any) => l.ISBN === isbn);
-        if (!livro) {
-            throw new Error(`Livro com ISBN ${isbn} não encontrado na estante do usuário.`);
-        }
-
-        livro.comentarios = novoComentario;
-
-        await ConexaoBD.armazenaBD(arquivo, userData);
-    } catch (error: any) {
-        console.error("Erro ao editar livro:", error.message);
-        throw new Error("Não foi possível editar o comentário.");
-    }
+    //Salva as alterações no json
+    await ConexaoBD.armazenaBD(arquivo, userData)
 }

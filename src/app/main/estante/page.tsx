@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation";
 import { logout } from "@/utils/auth";
 import { isSessionValid } from "@/utils/auth";
 import { listarLivros } from "@/utils/crud-db";
-import { editarLivros } from "@/utils/crud-db";
+import { excluirLivros } from "@/utils/crud-db";
+
 
 export default function Estante() {
   const [busca, setBusca] = useState(""); // Estado para o input de busca
@@ -59,11 +60,27 @@ export default function Estante() {
     fetchLivros();
   }, [usuario]);
 
-  // Filtra os livros de acordo com a categoria selecionada
-  const livrosFiltrados = livros.filter((livro) => {
-    if (categoriaSelecionada === "Todos") return true;
-    return livro.categoria === categoriaSelecionada;
-  });
+    // Filtra os livros de acordo com a categoria selecionada
+    const livrosFiltrados = livros.filter(livro => {
+        if (categoriaSelecionada === 'Todos') return true;
+        return livro.categoria === categoriaSelecionada;
+    });
+
+    //Função para excluir um livro
+    const ExcluirLivro = async (isbn: string) => {
+        try{
+            await excluirLivros(usuario, isbn);
+            alert("Livro excluído com sucesso!")
+            //Atualiza a lista de livros
+            const livrosAtualizados = await listarLivros(usuario);
+            setLivros(livrosAtualizados);
+            setLivroSelecionado(null); //Volta para a estante
+        }
+        catch(error){
+            alert("Não foi possível excluir o livro.");
+        }
+
+    };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -217,62 +234,35 @@ export default function Estante() {
                 alt={livroSelecionado.titulo}
               />
 
-              <div id="det-texto">
-                <div id="dados-botoes">
-                  <div id="det-dados">
-                    <h3>{livroSelecionado.titulo}</h3>
-                    <p>
-                      Autor(es):{" "}
-                      {livroSelecionado.autor || "Autor desconhecido"}
-                    </p>
-                    <p>
-                      Data de Publicação:{" "}
-                      {livroSelecionado.data || "Data desconhecida"}
-                    </p>
-                  </div>
-                  <div id="botoes">
-                    <button onClick={() => setEditando(true)}>Editar</button>
-                    <button>Excluir</button>
-                  </div>
-                </div>
-                <p id="det-descr">
-                  {editando ? (
-                    <>
-                      <textarea
-                        value={novoComentario}
-                        onChange={(e) => setNovoComentario(e.target.value)}
-                        rows={4}
-                        style={{ width: "100%", padding: "10px" }}
-                      />
-                      <button className="salvar-btn" onClick={salvarComentario}>
-                        Salvar
-                      </button>
-                      <button
-                        className="cancelar-btn"
-                        onClick={() => setEditando(false)}
-                      >
-                        Cancelar
-                      </button>
-                    </>
-                  ) : (
-                    <>{livroSelecionado?.comentarios || "Nenhum comentário"}</>
-                  )}
-                </p>
-              </div>
-            </div>
-          </section>
-        ) : (
-          livrosFiltrados.map((item) => (
-            <CardEstante
-              key={item.ISBN}
-              titulo={item.titulo}
-              capa={item.capa || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista
-              categoria={item.categoria}
-              onClick={() => selecionarLivro(item)} // Passa o livro para o estado 'selecionado'
-            />
-          ))
-        )}
-      </section>
-    </main>
-  );
+                        <div id='det-texto'>
+                            <div id="dados-botoes">
+                                <div id='det-dados'>
+                                    <h3>{livroSelecionado.titulo}</h3>
+                                    <p>Autor(es): {livroSelecionado.autor || "Autor desconhecido"}</p>
+                                    <p>Data de Publicação: {livroSelecionado.data || "Data desconhecida"}</p>
+                                </div>
+                                <div id='botoes'>
+                                    <button>Editar</button>
+                                    <button onClick={() => ExcluirLivro(livroSelecionado?.ISBN!)}>Excluir</button>
+                                </div>
+                            </div>
+                            <p id='det-descr'>{livroSelecionado.comentarios}</p>
+                        </div>
+
+                    </div>
+                </section>
+                ) : (
+                    livrosFiltrados.map((item) => (
+                        <CardEstante
+                            key={item.ISBN}
+                            titulo={item.titulo}
+                            capa={item.capa || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista
+                            categoria={item.categoria}
+                            onClick={() => selecionarLivro(item)} // Passa o livro para o estado 'selecionado'
+                        />
+                    ))
+                )}
+            </section>
+        </main>
+    );
 }
