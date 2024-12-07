@@ -246,7 +246,14 @@ export default function Estante() {
                     </p>
                   </div>
                   <div id="botoes">
-                    <button onClick={() => setEditando(true)}>Editar</button>
+                    <button
+                      onClick={() => {
+                        setEditando(true);
+                        setNovoComentario(livroSelecionado?.comentarios || ""); // Preenche o texto com o comentário atual
+                      }}
+                    >
+                      Editar
+                    </button>
 
                     <button
                       onClick={() => ExcluirLivro(livroSelecionado?.ISBN!)}
@@ -278,7 +285,6 @@ export default function Estante() {
                     <>{livroSelecionado?.comentarios || "Nenhum comentário"}</>
                   )}
                 </p>
-
               </div>
             </div>
           </section>
