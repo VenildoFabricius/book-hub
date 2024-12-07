@@ -159,5 +159,67 @@
         "categoria": "Lidos"
       }
     ]
+  },
+  {
+    "id": "4b9d51ad-2e48-4e31-b232-dc821b8fe44f",
+    "email": "danilo@gmail.com",
+    "password": "$2b$10$/6jinxJXoeThEk9OtPusVuDU8VvBvKYksuRPAyP7J3b1d4QontC8q",
+    "estante": [
+      {
+        "ISBN": "9780007525539",
+        "capa": "http://books.google.com/books/content?id=dVeengEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+        "titulo": "The Hobbit",
+        "autor": [
+          "J. R. R. Tolkien"
+        ],
+        "data": "2013-11",
+        "comentarios": "",
+        "categoria": "Lidos"
+      },
+      {
+        "ISBN": "9788534944168",
+        "capa": "http://books.google.com/books/content?id=RxG6DAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "O Pequeno Príncipe",
+        "autor": [
+          "Antoine Saint-Exupéry"
+        ],
+        "data": "2016-07-01",
+        "comentarios": "",
+        "categoria": "Lendo"
+      },
+      {
+        "ISBN": "9786561332491",
+        "capa": "http://books.google.com/books/content?id=0CgREQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Memórias Póstumas de Brás Cubas",
+        "autor": [
+          "Machado de Assis"
+        ],
+        "data": "2024-06-28",
+        "comentarios": "",
+        "categoria": "Quero Ler"
+      },
+      {
+        "ISBN": "9788578651244",
+        "capa": "http://books.google.com/books/content?id=jgYkDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Dom Casmurro",
+        "autor": [
+          "Machado de Assis"
+        ],
+        "data": "2017-05-05",
+        "comentarios": "",
+        "categoria": "Lendo"
+      },
+      {
+        "ISBN": "9788521314844",
+        "capa": "http://books.google.com/books/content?id=LszFPnNUVhMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Dom Casmurro",
+        "autor": [
+          "Machado de Assis"
+        ],
+        "data": "2011",
+        "comentarios": "",
+        "categoria": "Quero Ler"
+      }
+    ]
   }
 ]

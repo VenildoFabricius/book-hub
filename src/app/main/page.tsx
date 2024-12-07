@@ -11,7 +11,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { logout } from "@/utils/auth";
 import { isSessionValid } from "@/utils/auth";
-import { addLivroEstante } from "@/utils/crud-db" 
+import { addLivroEstante } from "@/utils/crud-db"
 
 
 interface Livro {
@@ -38,6 +38,8 @@ export default function Pesquisa() {
     const [busca, setBusca] = useState(buscaParam);  // Declarar o estado de 'busca'
     const [livros, setLivros] = useState<Livro[]>([]); // Estado com tipagem para os resultados da busca
     const [livroSelecionado, setLivroSelecionado] = useState<Livro | null>(null);
+
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todos"); // Estado para a categoria selecionada
 
     const [todos, setTodos] = useState<Livro[]>([]); // Todos os livros
     const [lidos, setLidos] = useState<Livro[]>([]); // Livros lidos
@@ -100,7 +102,7 @@ export default function Pesquisa() {
     const addToLidos = (livro: Livro) => {
         if (!lidos.includes(livro)) {
             setLidos((prev) => [...prev, livro]); // Adiciona o livro a "Lidos"
-    
+
             if (usuario) {
                 // Adiciona o livro à estante com as duas categorias, mas verifica se ele já está na estante
                 addLivroEstante(usuario, livro, "Lidos")
@@ -113,7 +115,7 @@ export default function Pesquisa() {
     const addToLendo = (livro: Livro) => {
         if (!lendo.includes(livro)) {
             setLendo((prev) => [...prev, livro]); // Adiciona o livro a "Lendo"
-    
+
             if (usuario) {
                 // Adiciona o livro à estante com as duas categorias, mas verifica se ele já está na estante
                 addLivroEstante(usuario, livro, "Lendo")
@@ -126,7 +128,7 @@ export default function Pesquisa() {
     const addToQueroLer = (livro: Livro) => {
         if (!queroLer.includes(livro)) {
             setQueroLer((prev) => [...prev, livro]); // Adiciona o livro a "Quero Ler"
-    
+
             if (usuario) {
                 // Adiciona o livro à estante com as duas categorias, mas verifica se ele já está na estante
                 addLivroEstante(usuario, livro, "Quero Ler")
@@ -140,6 +142,19 @@ export default function Pesquisa() {
     //    addLivroEstante(usuario, livroSelecionado);
     //    alert('Livro adicionado à estante com sucesso!');
     //}
+
+    const filtrarLivrosPorCategoria = () => {
+        switch (categoriaSelecionada) {
+            case "Lidos":
+                return lidos;
+            case "Lendo":
+                return lendo;
+            case "Quero Ler":
+                return queroLer;
+            default:
+                return livros; // Mostra todos os livros se nenhuma categoria for selecionada
+        }
+    };
 
     const minhaEstante = () => {
         router.push('/main/estante');
@@ -183,10 +198,18 @@ export default function Pesquisa() {
                 <div>
                     <p id="username-display">{usuario}</p>
                     <div id="info-cards">
-                        <div className="info-card"><p>Todos</p><p className="num-cards">72</p></div>
-                        <div className="info-card"><p>Lidos</p><p className="num-cards">58</p></div>
-                        <div className="info-card"><p>Lendo</p><p className="num-cards">2</p></div>
-                        <div className="info-card"><p>Quero Ler</p><p className="num-cards">12</p></div>
+                        <div className="info-card" onClick={() => setCategoriaSelecionada("Lidos")}>
+                            <p>Lidos</p>
+                            <p className="num-cards">{lidos.length}</p>
+                        </div>
+                        <div className="info-card" onClick={() => setCategoriaSelecionada("Lendo")}>
+                            <p>Lendo</p>
+                            <p className="num-cards">{lendo.length}</p>
+                        </div>
+                        <div className="info-card" onClick={() => setCategoriaSelecionada("Quero Ler")}>
+                            <p>Quero Ler</p>
+                            <p className="num-cards">{queroLer.length}</p>
+                        </div>
                     </div>
                 </div>
             </section>
