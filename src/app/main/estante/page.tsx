@@ -61,7 +61,9 @@ export default function Estante() {
   }, [usuario]);
 
   // Filtra os livros de acordo com a categoria selecionada
+  // livros.filter: Cria uma nova lista contendo apenas os livros daquela categoria selecionada
   const livrosFiltrados = livros.filter((livro) => {
+    //se a categoria selecionada for "Todos", todos os livros serão incluídos em livrosFiltrados.
     if (categoriaSelecionada === "Todos") return true;
     return livro.categoria === categoriaSelecionada;
   });

@@ -251,7 +251,7 @@
           "J. R. R. Tolkien"
         ],
         "data": "2013-11",
-        "comentarios": "",
+        "comentarios": "muito bom slk",
         "categoria": "Lidos"
       },
       {
@@ -288,13 +288,24 @@
         "categoria": "Lendo"
       },
       {
-        "ISBN": "9788521314844",
-        "capa": "http://books.google.com/books/content?id=LszFPnNUVhMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "Dom Casmurro",
+        "ISBN": "9780785835530",
+        "capa": "http://books.google.com/books/content?id=2ZNADwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "1001 Battles That Changed the Course of History",
         "autor": [
-          "Machado de Assis"
+          "R. G. Grant"
         ],
-        "data": "2011",
+        "data": "2017-10-24",
+        "comentarios": "",
+        "categoria": "Lidos"
+      },
+      {
+        "ISBN": "9786556748030",
+        "capa": "http://books.google.com/books/content?id=b9UnEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "O diário de Anne Frank",
+        "autor": [
+          "Anne Frank"
+        ],
+        "data": "2021-04-07",
         "comentarios": "",
         "categoria": "Quero Ler"
       }

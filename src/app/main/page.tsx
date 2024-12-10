@@ -13,7 +13,13 @@ import { logout } from "@/utils/auth";
 import { isSessionValid } from "@/utils/auth";
 import { addLivroEstante } from "@/utils/crud-db"
 
+//nessa interface, nós temos:
+/*
+    industryIdentifiers
+        type: ISBN_13 ou ISBN_10
+        identifier: é um id exclusivo daquele livro da própria API
 
+ */
 interface Livro {
     volumeInfo: {
         industryIdentifiers?: {
@@ -29,7 +35,6 @@ interface Livro {
         description?: string;
     };
 }
-
 
 export default function Pesquisa() {
     const searchParams = useSearchParams();
@@ -62,10 +67,13 @@ export default function Pesquisa() {
             return;
         }
 
-        setIsLoading(true);  // Inicia o estado de carregamento
+        setIsLoading(true);  // Inicia o estado de carregamento, que é o h2 "carregando" 
 
         try {
+            //Vamos buscar na API usando o axios o livro
+            //usamos o encodeURIComponent para garantir que os caracteres especiais seham codificados corretamente, evitando problemas de formatação na URL
             const resposta = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(busca)}&maxResults=40`);
+            //console.log(resposta.data.items);
             setLivros(resposta.data.items || []);
 
         } catch (error) {
@@ -88,6 +96,9 @@ export default function Pesquisa() {
         fetchUsuario(); //Chama a função fetchUsuario (acima). É chamada imediatamente para verificar a sessão do usuário assim que ele logar
     }, []); //[] Garante que o useEffect seja executado somente uma vez para evitar chamadas desnecessárias a isSessionValid()
 
+
+    //serve para quando apertarmos a tecla 'enter' quando fizermos alguma pesquisa
+    //daí essa função chama a função buscaLivros()
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             router.push(`/main?busca=${encodeURIComponent(busca)}`);
@@ -99,12 +110,21 @@ export default function Pesquisa() {
         setLivroSelecionado(livro);
     }
 
+    //no JSON temos uma parte chamada "categoria" e nela, possuímos 3 tipos de categoria: Lidos, Lendo e Quero ler
+    //Após o usuário logar e buscar por um livro, ele pode adicionar uma desses 3 tipos de categoria ao livro. Isso fica armazenado no JSON
     const addToLidos = (livro: Livro) => {
+        //estamos nos certificando que o livro não está na categoria lidos
         if (!lidos.includes(livro)) {
+            //estamos atualizando o estado da lista lidos para incluir o novo livro
+            /*
+            prev: Estado anterior (antes de adicionar o livro).
+            [...prev, livro]: Cria uma nova lista contendo todos os elementos da lista anterior (prev) e adiciona o novo livro ao final
+            */
             setLidos((prev) => [...prev, livro]); // Adiciona o livro a "Lidos"
 
+            //estamos verificando se o usuário esta autenticado
             if (usuario) {
-                // Adiciona o livro à estante com as duas categorias, mas verifica se ele já está na estante
+                // Adiciona o livro à estante com a categoria
                 addLivroEstante(usuario, livro, "Lidos")
                     .then(() => alert("Livro adicionado à estante: 'Lidos'"))
                     .catch((error) => console.error("Erro ao adicionar livro à estante:", error));
@@ -117,7 +137,7 @@ export default function Pesquisa() {
             setLendo((prev) => [...prev, livro]); // Adiciona o livro a "Lendo"
 
             if (usuario) {
-                // Adiciona o livro à estante com as duas categorias, mas verifica se ele já está na estante
+                // Adiciona o livro à estante com a categoria
                 addLivroEstante(usuario, livro, "Lendo")
                     .then(() => alert("Livro adicionado à estante: 'Lendo'"))
                     .catch((error) => console.error("Erro ao adicionar livro à estante:", error));
@@ -130,29 +150,11 @@ export default function Pesquisa() {
             setQueroLer((prev) => [...prev, livro]); // Adiciona o livro a "Quero Ler"
 
             if (usuario) {
-                // Adiciona o livro à estante com as duas categorias, mas verifica se ele já está na estante
+                // Adiciona o livro à estante com a categoria
                 addLivroEstante(usuario, livro, "Quero Ler")
                     .then(() => alert("Livro adicionado à estante: 'Quero Ler'"))
                     .catch((error) => console.error("Erro ao adicionar livro à estante:", error));
             }
-        }
-    };
-
-    //const addLivro = (usuario: string, livroSelecionado: Livro) => {
-    //    addLivroEstante(usuario, livroSelecionado);
-    //    alert('Livro adicionado à estante com sucesso!');
-    //}
-
-    const filtrarLivrosPorCategoria = () => {
-        switch (categoriaSelecionada) {
-            case "Lidos":
-                return lidos;
-            case "Lendo":
-                return lendo;
-            case "Quero Ler":
-                return queroLer;
-            default:
-                return livros; // Mostra todos os livros se nenhuma categoria for selecionada
         }
     };
 
@@ -164,7 +166,6 @@ export default function Pesquisa() {
         await logout();
         router.push('/');
     }
-
 
     return (
         <main>
@@ -252,16 +253,19 @@ export default function Pesquisa() {
                         </section>
 
                     ) : (
-                        livros.map((item) => (
+                        livros.map((item, index) => (
                             <Card
-                                key={item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_13")?.identifier || // Identificador único: ISBN ou titulo do livro
-                                    item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier}
+                                key={
+                                    item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_13")?.identifier ||
+                                    item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier ||
+                                    `${item.volumeInfo.title}-${index}` // Fallback: título e índice
+                                }
                                 titulo={item.volumeInfo.title}
                                 autor={item.volumeInfo.authors?.join(", ") || "Autor desconhecido"}
                                 ano={item.volumeInfo.publishedDate || "Data desconhecida"}
-                                imagem={item.volumeInfo.imageLinks?.thumbnail || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista capa na API
+                                imagem={item.volumeInfo.imageLinks?.thumbnail || "/SemCapa.png"}
                                 descricao=''
-                                onClick={() => selecionarLivro(item)} // Passa o livro para o estado 'selecionado'
+                                onClick={() => selecionarLivro(item)}
                             />
                         ))
                     )}

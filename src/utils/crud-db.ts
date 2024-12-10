@@ -38,7 +38,7 @@ export async function addLivroEstante(usuario: string, livro: Livro, categoria: 
         throw new Error('Livro sem ISBN não pode ser adicionado.');
     }
 
-    // Verifica se o livro já existe na estante para a categoria específica ou para "Todos"
+    // Verifica se o livro já existe na estante
     const livroExiste = user.estante.some((livroExistente: any) => 
         livroExistente.ISBN === isbn
     );
@@ -65,8 +65,23 @@ export async function addLivroEstante(usuario: string, livro: Livro, categoria: 
 
 // READ
 export async function listarLivros(usuario: string) {    
+    if (!usuario) {
+        throw new Error("O e-mail do usuário não foi fornecido.");
+    }
+
     const userData = await ConexaoBD.retornaBD(arquivo);
+    
+    // Verifica se o usuário foi encontrado
     const user = userData.find(user => user.email === usuario);
+    
+    if (!user) {
+        throw new Error(`Usuário com email ${usuario} não encontrado.`);
+    }
+
+    // Verifica se a propriedade 'estante' existe no usuário
+    if (!user.estante) {
+        throw new Error(`A estante do usuário ${usuario} não foi encontrada.`);
+    }
 
     const livrosEstante = user.estante.map((livro: CardProps) => {
         return livro;
