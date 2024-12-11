@@ -1,40 +1,95 @@
 
-# book-hub
+# BookHub
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+BookHub is a full-stack web application designed to help users manage their personal digital libraries. It allows users to log in, search for books, and organize their collections with ease. Users can track their reading progress, add comments to books, and customize their libraries. The project uses modern web technologies to deliver a secure, dynamic, and user-friendly experience.
 
-## Getting Started
+## Features
 
-First, run the development server:
+- **User Authentication**
+  - Secure login and registration with password encryption.
+  - Session management using JSON Web Tokens (JWT).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Book Search**
+  - Search for books using an external API.
+  - Display book details, including title, author, publication year, and cover image.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Personal Library Management**
+  - Add books to your personal library.
+  - Mark books as read and leave comments on them.
+  - View and edit comments for each book.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend**
+  - React.js with Next.js for server-side rendering.
+  - FontAwesome for icons.
+  - React Hot Toast for notifications.
 
-## Learn More
+- **Backend**
+  - Node.js with custom server actions.
+  - JSON-based file storage for user and book data.
+  - `bcrypt` for password encryption.
+  - `jose` library for JWT handling.
 
-To learn more about Next.js, take a look at the following resources:
+- **API Integration**
+  - Google Books API for book search functionality.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/bookhub.git
+   ```
 
-## Deploy on Vercel
+2. Navigate to the project directory:
+   ```bash
+   cd bookhub
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Set up environment variables:
+   - Create a `.env` file in the root directory.
+   - Add the following variables:
+     ```
+     TOKEN=your_randomly_generated_secret
+     ```
 
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+6. Open your browser and navigate to:
+   ```
+   http://localhost:3000
+   ```
+
+## Usage
+
+- Register for an account or log in with existing credentials.
+- Use the search bar to find books and add them to your personal library.
+- Manage your library by marking books as read and leaving comments.
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add new feature"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request.
+6. 
