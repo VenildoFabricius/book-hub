@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import "@/styles/home.css";
 import Image from "next/image";
@@ -11,7 +11,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { logout } from "@/utils/auth";
 import { isSessionValid } from "@/utils/auth";
-import { addLivroEstante } from "@/utils/crud-db"
+import { addLivroEstante } from "@/utils/crud-db";
 
 //nessa interface, nós temos:
 /*
@@ -38,19 +38,15 @@ interface Livro {
 
 export default function Pesquisa() {
     const searchParams = useSearchParams();
-    const buscaParam = searchParams.get("busca") || "";  // Obtém o termo de busca da URL
-    const [usuario, setUsuario] = useState<string>(""); //Estado para pegar o email do usuario logado
-    const [busca, setBusca] = useState(buscaParam);  // Declarar o estado de 'busca'
-    const [livros, setLivros] = useState<Livro[]>([]); // Estado com tipagem para os resultados da busca
-    const [livroSelecionado, setLivroSelecionado] = useState<Livro | null>(null);
-
-    const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todos"); // Estado para a categoria selecionada
-
-    const [todos, setTodos] = useState<Livro[]>([]); // Todos os livros
-    const [lidos, setLidos] = useState<Livro[]>([]); // Livros lidos
-    const [lendo, setLendo] = useState<Livro[]>([]); // Livros que estão sendo lidos
-    const [queroLer, setQueroLer] = useState<Livro[]>([]); // Livros que o usuário quer ler
-    const [isLoading, setIsLoading] = useState(false); // Estado para controlar a exibição do 'loading'
+    const buscaParam = searchParams.get("busca") || "";     // Obtém o termo de busca da URL
+    const [usuario, setUsuario] = useState<string>("");     // Estado para obter o email do usuario logado
+    const [busca, setBusca] = useState(buscaParam);         // Declarar o estado de 'busca'
+    const [livros, setLivros] = useState<Livro[]>([]);      // Estado com tipagem para os resultados da busca
+    const [livroSelecionado, setLivroSelecionado] = useState<Livro | null>(null);  // Estado do livro selecionado
+    const [lidos, setLidos] = useState<Livro[]>([]);        // Livros lidos
+    const [lendo, setLendo] = useState<Livro[]>([]);        // Livros que estão sendo lidos
+    const [queroLer, setQueroLer] = useState<Livro[]>([]);  // Livros que o usuário quer ler
+    const [isLoading, setIsLoading] = useState(false);      // Estado para controlar a exibição do 'loading'
     const router = useRouter();
 
     // useEffect para realizar a pesquisa caso haja um parâmetro de busca na URL
@@ -61,8 +57,9 @@ export default function Pesquisa() {
         }
     }, []);
 
+    // Faz uma requisição à API Google Books com o termo inserido no input
     const buscaLivros = async () => {
-        //caso o input esteja vazio, não faz a busca
+        // Caso o input esteja vazio, não faz a busca
         if (busca.trim() === "") {
             return;
         }
@@ -70,10 +67,10 @@ export default function Pesquisa() {
         setIsLoading(true);  // Inicia o estado de carregamento, que é o h2 "carregando" 
 
         try {
-            //Vamos buscar na API usando o axios o livro
-            //usamos o encodeURIComponent para garantir que os caracteres especiais seham codificados corretamente, evitando problemas de formatação na URL
+            // Realiza a requisição à API usando o axios
+            // O encodeURIComponent garante que os caracteres especiais sejam codificados corretamente, evitando problemas de formatação na URL
             const resposta = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(busca)}&maxResults=40`);
-            //console.log(resposta.data.items);
+
             setLivros(resposta.data.items || []);
 
         } catch (error) {
@@ -84,21 +81,20 @@ export default function Pesquisa() {
         }
     }
 
-    // Pegando o email do usuário logado
+    // Obtém o email do usuário logado
     useEffect(() => {
-        async function fetchUsuario() {
-            const session = await isSessionValid(); //Chama a função isSessionValid para ober os dados do usuário
-            if (session && typeof session.email === 'string') { //Se o usuáio estiver logado
-                setUsuario(session.email); //Estado atualizado com o email do usuário
+        async function buscaUsuario() {
+            const session = await isSessionValid();             //Chama a função isSessionValid para ober os dados do usuário
+            if (session && typeof session.email === 'string') { //Se o usuário estiver logado
+                setUsuario(session.email);                      //Estado atualizado com o email do usuário
             }
         }
 
-        fetchUsuario(); //Chama a função fetchUsuario (acima). É chamada imediatamente para verificar a sessão do usuário assim que ele logar
-    }, []); //[] Garante que o useEffect seja executado somente uma vez para evitar chamadas desnecessárias a isSessionValid()
+        buscaUsuario(); // Chama a função buscaUsuario. É chamada imediatamente para verificar a sessão do usuário assim que ele logar
+    }, []); // [] Garante que o useEffect seja executado somente uma vez para evitar chamadas desnecessárias a 'isSessionValid'
 
 
-    //serve para quando apertarmos a tecla 'enter' quando fizermos alguma pesquisa
-    //daí essa função chama a função buscaLivros()
+    // Executa a função 'buscaLivros' ao pressionar a tecla 'Enter'
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             router.push(`/main?busca=${encodeURIComponent(busca)}`);
@@ -106,6 +102,7 @@ export default function Pesquisa() {
         }
     }
 
+    // Usa um useState para atribuir o livro selecionado à variável 'livroSelecionado'
     const selecionarLivro = (livro: Livro) => {
         setLivroSelecionado(livro);
     }
@@ -132,9 +129,10 @@ export default function Pesquisa() {
         }
     };
 
+    // Adiciona o livro na estante, na categoria "Lendo"
     const addToLendo = (livro: Livro) => {
         if (!lendo.includes(livro)) {
-            setLendo((prev) => [...prev, livro]); // Adiciona o livro a "Lendo"
+            setLendo((prev) => [...prev, livro]);
 
             if (usuario) {
                 // Adiciona o livro à estante com a categoria
@@ -145,9 +143,10 @@ export default function Pesquisa() {
         }
     };
 
+    // Adiciona o livro na estante, na categoria "Quero Ler"
     const addToQueroLer = (livro: Livro) => {
         if (!queroLer.includes(livro)) {
-            setQueroLer((prev) => [...prev, livro]); // Adiciona o livro a "Quero Ler"
+            setQueroLer((prev) => [...prev, livro]);
 
             if (usuario) {
                 // Adiciona o livro à estante com a categoria
@@ -158,10 +157,12 @@ export default function Pesquisa() {
         }
     };
 
+    // Redireciona o usuário para a estante
     const minhaEstante = () => {
         router.push('/main/estante');
     }
 
+    // Finaliza a sessão do usuário e o redireciona para a página inicial
     const finalizaSessao = async () => {
         await logout();
         router.push('/');
@@ -183,7 +184,7 @@ export default function Pesquisa() {
                         onChange={(e) => setBusca(e.target.value)}
                         onKeyDown={handleKeyDown}
                     />
-                    <button className='search-btn' onClick={buscaLivros}><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa' /></button>
+                    <button className="search-btn" onClick={buscaLivros}><FontAwesomeIcon icon={faMagnifyingGlass} className="lupa" /></button>
                 </div>
 
                 <div>
@@ -191,29 +192,6 @@ export default function Pesquisa() {
                     <a href="#" className="link" onClick={finalizaSessao}>Sair</a>
                 </div>
             </header>
-
-            <section id="user-section">
-                <div id="img-conteiner">
-                    <img src="/avatar.jpg" alt="Foto de perfil do usuário" />
-                </div>
-                <div>
-                    <p id="username-display">{usuario}</p>
-                    <div id="info-cards">
-                        <div className="info-card" onClick={() => setCategoriaSelecionada("Lidos")}>
-                            <p>Lidos</p>
-                            <p className="num-cards">{lidos.length}</p>
-                        </div>
-                        <div className="info-card" onClick={() => setCategoriaSelecionada("Lendo")}>
-                            <p>Lendo</p>
-                            <p className="num-cards">{lendo.length}</p>
-                        </div>
-                        <div className="info-card" onClick={() => setCategoriaSelecionada("Quero Ler")}>
-                            <p>Quero Ler</p>
-                            <p className="num-cards">{queroLer.length}</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             {isLoading ? (
                 <h2 id='procurando'><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa' />   Procurando...</h2>
@@ -258,7 +236,7 @@ export default function Pesquisa() {
                                 key={
                                     item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_13")?.identifier ||
                                     item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier ||
-                                    `${item.volumeInfo.title}-${index}` // Fallback: título e índice
+                                    `${item.volumeInfo.title}-${index}`
                                 }
                                 titulo={item.volumeInfo.title}
                                 autor={item.volumeInfo.authors?.join(", ") || "Autor desconhecido"}

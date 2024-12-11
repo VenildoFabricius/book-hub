@@ -15,22 +15,18 @@ import { excluirLivros } from "@/utils/crud-db";
 import { editarLivros } from "@/utils/crud-db";
 
 export default function Estante() {
-  const [busca, setBusca] = useState(""); // Estado para o input de busca
-  const [usuario, setUsuario] = useState<string>(""); //Estado para pegar o email do usuario logado
-  const [livros, setLivros] = useState<CardProps[]>([]);
-  const [livroSelecionado, setLivroSelecionado] = useState<CardProps | null>(
-    null
-  ); // Estado do livro selecionado
-  const [categoriaSelecionada, setCategoriaSelecionada] =
-    useState<string>("Todos"); // Categoria inicial: "Todos"
+  const [busca, setBusca] = useState("");                                                     // Estado para o input de busca
+  const [usuario, setUsuario] = useState<string>("");                                         // Estado para pegar o email do usuario logado
+  const [livros, setLivros] = useState<CardProps[]>([]);                                      // Estado para os livros da estante do usuário
+  const [livroSelecionado, setLivroSelecionado] = useState<CardProps | null>(null);           // Estado do livro selecionado
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState<string>("Todos");          // Categoria inicial: "Todos"
+  const [editando, setEditando] = useState(false);                                            // Estado para definir a condição de edição dos comentários do livro
+  const [novoComentario, setNovoComentario] = useState(livroSelecionado?.comentarios || "");  // Estado para atualizar o novo comentário do livro
   const router = useRouter();
-  const [editando, setEditando] = useState(false);
-  const [novoComentario, setNovoComentario] = useState(
-    livroSelecionado?.comentarios || ""
-  );
 
+  // Faz uma requisição à API Google Books com o termo inserido no input
   const buscaLivros = async () => {
-    //caso o input esteja vazio
+    //caso o input esteja vazio, não realiza a busca
     if (busca.trim() === "") {
       return;
     }
@@ -39,85 +35,101 @@ export default function Estante() {
     router.push(`/main?busca=${encodeURIComponent(busca)}`);
   };
 
-  // Pegando o email do usuário logado
+  // Obtém o email do usuário logado
   useEffect(() => {
-    async function fetchUsuario() {
-      const session = await isSessionValid(); //Chama a função isSessionValid para ober os dados do usuário
+    async function buscaUsuario() {
+      const session = await isSessionValid(); // Chama a função isSessionValid para ober os dados do usuário
       if (session && typeof session.email === "string") {
-        //Se o usuáio estiver logado
-        setUsuario(session.email); //Estado atualizado com o email do usuário
+        // Se o usuáio estiver logado
+        setUsuario(session.email); // Estado atualizado com o email do usuário
       }
     }
-    fetchUsuario(); //Chama a função fetchUsuario (acima). É chamada imediatamente para verificar a sessão do usuário assim que ele logar
+    buscaUsuario(); //Chama a função buscaUsuario. É chamada imediatamente para verificar a sessão do usuário assim que ele logar
   }, []); // [] Garante que o useEffect seja executado somente uma vez para evitar chamadas desnecessárias a isSessionValid()
 
+  // Lista os livros que o usuário possui na estante
   useEffect(() => {
-    const fetchLivros = async () => {
-      const livrosEstante = await listarLivros(usuario);
-      setLivros(livrosEstante);
+    const userBooks = async () => {
+      if (!usuario)
+        return; // Aguarda até que 'usuario' seja atribuído
+      const livrosEstante = await listarLivros(usuario); // Obtém os livros da estante do usuário, armazenados no banco de dados
+      setLivros(livrosEstante); // Atribui os livros retornados por 'listarLivros' à variável 'livros'
     };
 
-    fetchLivros();
-  }, [usuario]);
+
+    userBooks();
+  }, [usuario]); // Executa o useEffect sempre que houver alteração na variável 'usuario'
 
   // Filtra os livros de acordo com a categoria selecionada
   // livros.filter: Cria uma nova lista contendo apenas os livros daquela categoria selecionada
   const livrosFiltrados = livros.filter((livro) => {
     //se a categoria selecionada for "Todos", todos os livros serão incluídos em livrosFiltrados.
-    if (categoriaSelecionada === "Todos") return true;
+    if (categoriaSelecionada === "Todos")
+      return true;
     return livro.categoria === categoriaSelecionada;
   });
 
-  //Função para excluir um livro
+  // Exclui o livro selecionado da estante
   const ExcluirLivro = async (isbn: string) => {
     try {
+      // Procura o livro na estante do usuário no banco de dados
       await excluirLivros(usuario, isbn);
       alert("Livro excluído com sucesso!");
-      //Atualiza a lista de livros
+      // Atualiza a lista de livros
       const livrosAtualizados = await listarLivros(usuario);
+      // Atualiza o estado dos livros da estante
       setLivros(livrosAtualizados);
-      setLivroSelecionado(null); //Volta para a estante
+      // Volta para a estante ao definir que não há livro selecionado
+      setLivroSelecionado(null);
     } catch (error) {
       alert("Não foi possível excluir o livro.");
     }
   };
 
+  // Executa a função 'buscaLivros' ao pressionar a tecla 'Enter'
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       buscaLivros();
     }
   };
 
+  // Usa um useState para atribuir o livro selecionado à variável 'livroSelecionado'
   const selecionarLivro = (livro: CardProps) => {
     setLivroSelecionado(livro);
   };
 
+  // Redireciona o usuário para a estante
   const minhaEstante = () => {
     router.push("/main/estante");
   };
 
+  // Finaliza a sessão do usuário e o redireciona para a página inicial
   const finalizaSessao = async () => {
     await logout();
     router.push("/");
   };
 
+  // Edita o comentário do livro
   const salvarComentario = async () => {
     if (livroSelecionado && livroSelecionado.ISBN) {
       try {
         await editarLivros(usuario, livroSelecionado.ISBN, novoComentario);
 
-        const livrosAtualizados = livros.map((livro) =>
-          livro.ISBN === livroSelecionado.ISBN
-            ? { ...livro, comentarios: novoComentario }
-            : livro
+        const livrosAtualizados = livros.map((livro) =>   // Mapeia os livros da estante
+          livro.ISBN === livroSelecionado.ISBN            // Se o ISBN corresponder ao livro selecionado,
+            ? { ...livro, comentarios: novoComentario }   // cria um novo objeto 'livro' com o comentário atualizado.
+            : livro                                       // Caso contrário, mantém o objeto original
         );
 
         setLivros(livrosAtualizados);
+
         setLivroSelecionado({
-          ...livroSelecionado,
-          comentarios: novoComentario,
+          ...livroSelecionado,            // Copia todas as propriedades do livro selecionado
+          comentarios: novoComentario,    // Atualiza a propriedade 'comentarios' com o novo comentário
         });
+
         setEditando(false);
+
       } catch (error) {
         console.error("Erro ao salvar o comentário:", error);
         alert("Não foi possível salvar o comentário. Tente novamente.");
@@ -153,7 +165,7 @@ export default function Estante() {
             onKeyDown={handleKeyDown}
           />
           <button className="search-btn" onClick={buscaLivros}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} id="lupa" />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="lupa" />
           </button>
         </div>
 

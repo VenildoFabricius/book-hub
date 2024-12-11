@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import '@/app/page.css'
-import '@/styles/Card.css'
+import '@/app/page.css';
+import '@/styles/Card.css';
 import Image from "next/image";
 import Link from 'next/link';
 import axios from "axios";
@@ -29,38 +29,41 @@ interface Livro {
 }
 
 export default function Home() {
-  const [busca, setBusca] = useState(""); // Estado para o input de busca
-  const [livros, setLivros] = useState<Livro[]>([]); // Estado com tipagem para os resultados da busca
+  const [busca, setBusca] = useState("");                                       // Estado para o input de busca
+  const [livros, setLivros] = useState<Livro[]>([]);                            // Estado com tipagem para os resultados da busca
   const [livroSelecionado, setLivroSelecionado] = useState<Livro | null>(null); // Estado do livro selecionado
-  const [isLoading, setIsLoading] = useState(false); // Estado para controlar a exibição do 'loading'
+  const [isLoading, setIsLoading] = useState(false);                            // Estado para controlar a exibição do 'loading'
 
+  // Faz uma requisição à API Google Books com o termo inserido no input
   const buscaLivros = async () => {
-    //caso o input esteja vazio
-    if (busca.trim() === "") {
+    if (busca.trim() === "") { // Caso o input esteja vazio                       
       alert("Por favor, insira o nome de um livro.");
       return;
     }
 
     setIsLoading(true);  // Inicia o estado de carregamento
 
+    // Tenta fazer a requisição com o termo de busca
     try {
       const resposta = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${busca}&maxResults=40`);
-      setLivros(resposta.data.items || []);
+      setLivros(resposta.data.items || []); // Atribui o retorno da API à variável 'livros' através do useState
 
-    } catch (error) {
+    } catch (error) { // Caso ocorra algum erro na requisição
       console.error("Erro ao buscar livros:", error);
-      alert("Não foi possível buscar os livros. Tente novamente mais tarde.");
-    } finally {
+      alert("Não foi possível buscar os livros. Tente novamente mais tarde."); // Alerta o usuário
+    } finally {             // Ocorrendo erros ou não,
       setIsLoading(false);  // Finaliza o estado de carregamento
     }
   };
 
+  // Executa a função 'buscaLivros' ao pressionar a tecla 'Enter'
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       buscaLivros();
     }
   }
 
+  // Usa um useState para atribuir o livro selecionado à variável 'livroSelecionado'
   const selecionarLivro = (livro: Livro) => {
     setLivroSelecionado(livro);
   };
@@ -92,14 +95,14 @@ export default function Home() {
           onChange={(e) => setBusca(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <button className='search-btn' onClick={buscaLivros}><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa' /></button>
+        <button className='search-btn' onClick={buscaLivros}><FontAwesomeIcon icon={faMagnifyingGlass} className='lupa' /></button>
       </div>
 
-      {isLoading ? (
-        <h2 id='procurando'><FontAwesomeIcon icon={faMagnifyingGlass} id='lupa' />   Procurando...</h2>
+      {isLoading ? ( 
+        <h2 id='procurando'><FontAwesomeIcon icon={faMagnifyingGlass} className='lupa'/>   Procurando...</h2>
       ) : (
         <section id='search-results'>
-          {livroSelecionado ? (
+          {livroSelecionado ? ( // Se um livro foi selecionado, exibe os seus detalhes
             <section id='detalhes'>
 
               <div id='voltar'>
@@ -122,15 +125,15 @@ export default function Home() {
               </div>
             </section>
 
-          ) : (
+          ) : ( // Se não há livro selecionado, exibe os resultados da busca
             livros.map((item) => (
               <Card
                 key={item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_13")?.identifier ||
-                  item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier}
+                  item.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier} // Os livros são identificados pelo ISBN
                 titulo={item.volumeInfo.title}
                 autor={item.volumeInfo.authors?.join(", ") || "Autor desconhecido"}
                 ano={item.volumeInfo.publishedDate || "Data desconhecida"}
-                imagem={item.volumeInfo.imageLinks?.thumbnail || "/SemCapa.png"} // Exibe uma imagem padrão caso não exista
+                imagem={item.volumeInfo.imageLinks?.thumbnail || "/SemCapa.png"} // Se a API não retornar uma imagem de capa, exibe uma imagem padrão
                 descricao=''
                 onClick={() => selecionarLivro(item)} // Passa o livro para o estado
               />

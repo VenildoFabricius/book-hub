@@ -1,15 +1,15 @@
 'use client';
 
+import "@/styles/login.css";
 import Image from "next/image";
 import Link from "next/link";
-import "@/styles/login.css";
-import { z } from "zod";
 import toast from 'react-hot-toast';
 import { createUser, LoginCredentials } from "@/utils/credentials";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { z } from "zod";
 
-//CreateUserSchema é utilizado para as regras de validação do zod, para os campos de createUser
+// CreateUserSchema é utilizado para as regras de validação do zod, para os campos de createUser
 const CreateUserSchema = z.object({
     email: z.string().trim().email('Formato de email incorreto'),
     confEmail: z.string().trim().email('Formato de email incorreto'),
@@ -24,7 +24,7 @@ const CreateUserSchema = z.object({
 });
 
 export default function CreateUserForm() {
-    //A função createUserClient faz uma conexão entre um componente "client" e um "server". Ela está associada ao "form", em "action"
+    // A função createUserClient faz uma conexão entre um componente "client" e um "server". Ela está associada ao "form", em "action"
     const createUserClient = async (formData: FormData) => {
         const createUserData = {
             email: formData.get('email') as string,

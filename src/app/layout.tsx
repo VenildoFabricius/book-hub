@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import Head from 'next/head';
 import Footer from "@/components/footer";
-import { Inter } from 'next/font/google';
 import FontAwesomeConfig from "./fontawesome";
+import { Inter } from 'next/font/google';
 import { Toaster } from "react-hot-toast";
+import type { Metadata } from "next";
+
 
 const inter = Inter({
   weight: ['100', '400', '700'],

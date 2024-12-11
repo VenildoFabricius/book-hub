@@ -22,8 +22,11 @@ interface Livro {
 }
 
 // CREATE
-export async function addLivroEstante(usuario: string, livro: Livro, categoria: "Lidos" | "Lendo" | "Quero Ler" | "Todos") {   
+export async function addLivroEstante(usuario: string, livro: Livro, categoria: "Lidos" | "Lendo" | "Quero Ler" | "Todos") {
+    // Consulta o banco de dados
     const userData = await ConexaoBD.retornaBD(arquivo);
+
+    // Procura pelo usuário passado como parâmetro
     const user = userData.find(user => user.email === usuario);
 
     if (!user) {
@@ -32,21 +35,23 @@ export async function addLivroEstante(usuario: string, livro: Livro, categoria: 
 
     // Obtém o ISBN do livro
     const isbn = livro.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_13")?.identifier ||
-                 livro.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier;
+        livro.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier;
 
     if (!isbn) {
         throw new Error('Livro sem ISBN não pode ser adicionado.');
     }
 
     // Verifica se o livro já existe na estante
-    const livroExiste = user.estante.some((livroExistente: any) => 
+    const livroExiste = user.estante.some((livroExistente: any) =>
         livroExistente.ISBN === isbn
     );
 
+    // Se sim, impede que o mesmo livro seja adicionado novamente
     if (livroExiste) {
         throw new Error('Este livro já está na estante.');
     }
 
+    // Define o objeto 'novoLivro'
     const novoLivro = {
         ISBN: livro.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_13")?.identifier ||
             livro.volumeInfo.industryIdentifiers?.find(id => id.type === "ISBN_10")?.identifier,
@@ -58,22 +63,20 @@ export async function addLivroEstante(usuario: string, livro: Livro, categoria: 
         categoria: categoria === "Todos" ? undefined : categoria // Se for "todos", categoria será indefinida
     }
 
+    // Armazena o novo livro na estante do usuário
     user.estante.push(novoLivro);
 
-    await ConexaoBD.armazenaBD('users.json', userData);
+    // Salva as alterações no banco de dados
+    await ConexaoBD.armazenaBD(arquivo, userData);
 }
 
 // READ
-export async function listarLivros(usuario: string) {    
-    if (!usuario) {
-        throw new Error("O e-mail do usuário não foi fornecido.");
-    }
-
+export async function listarLivros(usuario: string) {
     const userData = await ConexaoBD.retornaBD(arquivo);
-    
-    // Verifica se o usuário foi encontrado
+
+    // Procura pelo usuário passado como parâmetro
     const user = userData.find(user => user.email === usuario);
-    
+
     if (!user) {
         throw new Error(`Usuário com email ${usuario} não encontrado.`);
     }
@@ -83,49 +86,58 @@ export async function listarLivros(usuario: string) {
         throw new Error(`A estante do usuário ${usuario} não foi encontrada.`);
     }
 
+    // Mapoeia os livros da estante do usuário, armazenando na variável 'livrosEstante'
     const livrosEstante = user.estante.map((livro: CardProps) => {
         return livro;
     });
 
+    // Retorna os livros da estante do usuário
     return livrosEstante;
 }
 
-// DELETE
-export async function excluirLivros (usuario: string, isbn: string) {
-    const userData = await ConexaoBD.retornaBD(arquivo);
-    const user = userData.find(user => user.email === usuario);
-
-    //Procura o livro pelo ISBN
-    const indexLivro = user.estante.findIndex((livro: any) => livro.ISBN === isbn);
-
-    //Remove o Livro da estante
-    user.estante.splice(indexLivro, 1);
-
-    //Salva as alterações no json
-    await ConexaoBD.armazenaBD(arquivo, userData)
-}
-
-// EDIT
+// UPDATE
 export async function editarLivros(usuario: string, isbn: string, novoComentario: string) {
     try {
-        
+        // Consulta o banco de dados
         const userData = await ConexaoBD.retornaBD(arquivo);
 
+        // Procura pelo usuário passado como parâmetro
         const user = userData.find((u: any) => u.email === usuario);
         if (!user) {
             throw new Error(`Usuário com email ${usuario} não encontrado.`);
         }
 
+        // Procura pelo livro, através do ISBN passado como parâmetro
         const livro = user.estante.find((l: any) => l.ISBN === isbn);
         if (!livro) {
             throw new Error(`Livro com ISBN ${isbn} não encontrado na estante do usuário.`);
         }
 
+        // Atualiza o campo 'comentarios' do livro com o 'novoComentario'
         livro.comentarios = novoComentario;
 
+        // Atualiza o banco de dados
         await ConexaoBD.armazenaBD(arquivo, userData);
     } catch (error: any) {
         console.error("Erro ao editar livro:", error.message);
         throw new Error("Não foi possível editar o comentário.");
-    }
+    }
+}
+
+// DELETE
+export async function excluirLivros(usuario: string, isbn: string) {
+    // Consulta o banco de dados
+    const userData = await ConexaoBD.retornaBD(arquivo);
+
+    // Procura pelo usuário fornecido como parâmetro
+    const user = userData.find(user => user.email === usuario);
+
+    // Procura o livro na estante do usuário usando o ISBN
+    const indexLivro = user.estante.findIndex((livro: any) => livro.ISBN === isbn);
+
+    // Remove o Livro da estante
+    user.estante.splice(indexLivro, 1);
+
+    // Salva as alterações no banco de dados
+    await ConexaoBD.armazenaBD(arquivo, userData)
 }

@@ -1,28 +1,28 @@
 "use client";
 
+import "@/styles/create.css";
 import Image from "next/image";
 import Link from "next/link";
-import "@/styles/create.css";
+import toast from 'react-hot-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import { z } from "zod";
-import toast from 'react-hot-toast';
 import { LoginCredentials } from "@/utils/credentials";
 import { login } from "@/utils/credentials";
 
-//LoginSchema é utilizado para as regras de validação do zod, para os campos de login
+// LoginSchema é utilizado para as regras de validação do zod, para os campos de login
 const LoginSchema = z.object({
     email: z.string().trim().email('Email com formato incorreto'),
     password: z.string({ message: 'Insira uma senha' }).trim().min(1, { message: 'Campo senha não pode estar vazio' })
 })
 
 export default function LoginForm() {
-    //A função loginClientAction faz uma conexão entre um componente "client" e um "server". Ela está associada ao "form", em "action"
+    // A função loginClientAction faz uma conexão entre um componente "client" e um "server". Ela está associada ao "form", em "action"
     const loginClientAction = async (formData: FormData) => {
 
         const loginData: LoginCredentials = {
-            email: formData.get('email') as string, //pega o campo name do input do email dentro do form
-            password: formData.get('password') as string //pega o campo name do input da senha dentro do form
+            email: formData.get('email') as string, // pega o campo name do input do email dentro do form
+            password: formData.get('password') as string // pega o campo name do input da senha dentro do form
         }
 
         const result = LoginSchema.safeParse(loginData);
@@ -30,16 +30,16 @@ export default function LoginForm() {
         if (!result.success) {
             let errorMsg = "";
 
-            //Quando existe mais de um erro, acumulam-se todas as mensagens de erro para mostrar somente uma
+            // Quando existe mais de um erro, acumulam-se todas as mensagens de erro para mostrar somente uma
             result.error.issues.forEach((issue) => {
                 errorMsg = errorMsg + issue.message + '. ';
             })
 
-            toast.error(errorMsg);
+            toast.error(errorMsg); // Notifica o usuário com os erros
             return;
         }
 
-        //Chama o Server Action
+        // Chama o Server Action
         const retorno = await login(loginData)
         if (retorno) {
             toast.error(retorno.error);

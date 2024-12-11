@@ -52,64 +52,59 @@
     "password": "$2b$10$XVIKMPrGaSnGanbBRGI4y.xbnwMPPbkCRCrE9RCa40iNWTfwPKdYe",
     "estante": [
       {
-        "ISBN": "9786560050013",
-        "capa": "http://books.google.com/books/content?id=V-HoEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "O Silmarillion – J.R.R. Tolkien, editado por Christopher Tolkien e ilustrado por Ted Nasmith",
+        "ISBN": "9786555113976",
+        "capa": "http://books.google.com/books/content?id=dnWVEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "A Queda de Númenor",
         "autor": [
           "J.R.R Tolkien"
         ],
-        "data": "2023-12-25",
-        "comentarios": "A Bíblia do Tolkien"
+        "data": "2022-11-10",
+        "comentarios": "",
+        "categoria": "Lendo"
       },
       {
-        "ISBN": "9789897776298",
-        "capa": "http://books.google.com/books/content?id=nGCIEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
-        "titulo": "O Hobbit",
-        "autor": [
-          "J. R. R. Tolkien"
-        ],
-        "data": "2022-08-31",
-        "comentarios": ""
-      },
-      {
-        "ISBN": "9788595086333",
-        "capa": "http://books.google.com/books/content?id=R7KuDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "O Senhor dos Anéis: A Sociedade do Anel",
+        "ISBN": "9788595084148",
+        "capa": "http://books.google.com/books/content?id=2yJnDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "A Queda de Gondolin",
         "autor": [
           "J.R.R. Tolkien"
         ],
-        "data": "2019-11-25",
-        "comentarios": ""
+        "data": "2018-08-30",
+        "comentarios": "Aqui o usuário insere os comentários a respeito da leitura do livro",
+        "categoria": "Lidos"
       },
       {
-        "ISBN": "9788595086326",
-        "capa": "http://books.google.com/books/content?id=UbKuDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "O Senhor dos Anéis: As duas torres",
+        "ISBN": "9789895641291",
+        "capa": "http://books.google.com/books/content?id=NZZWEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Sapiens: História Breve da Humanidade",
         "autor": [
-          "J.R.R. Tolkien"
+          "Yuval Noah Harari"
         ],
-        "data": "2019-11-25",
-        "comentarios": ""
+        "data": "2013-11-01",
+        "comentarios": "",
+        "categoria": "Lidos"
       },
       {
-        "ISBN": "9788595086364",
-        "capa": "http://books.google.com/books/content?id=eVevDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "Box Trilogia O Senhor dos Anéis",
+        "ISBN": "9788543807829",
+        "capa": "http://books.google.com/books/content?id=MGAlDQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Homo Deus",
         "autor": [
-          "J.R.R. Tolkien"
+          "Yuval Noah Harari"
         ],
-        "data": "2019-11-25",
-        "comentarios": ""
+        "data": "2016-11-11",
+        "comentarios": "",
+        "categoria": "Quero Ler"
       },
       {
-        "ISBN": "9788595085350",
-        "capa": "http://books.google.com/books/content?id=saiWDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "titulo": "As aventuras de Sherlock Holmes",
+        "ISBN": "9789895830008",
+        "capa": "http://books.google.com/books/content?id=aoMHEQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        "titulo": "Nexus",
         "autor": [
-          "Arthur Conan Doyle"
+          "Yuval Noah Harari"
         ],
-        "data": "2019-06-10",
-        "comentarios": ""
+        "data": "2024-09-23",
+        "comentarios": "",
+        "categoria": "Quero Ler"
       }
     ]
   },
