@@ -1,5 +1,5 @@
 
-# BookHub
+# BookHub - Personal Digital Library Manager
 
 BookHub is a full-stack web application designed to help users manage their personal digital libraries. It allows users to log in, search for books, and organize their collections with ease. Users can track their reading progress, add comments to books, and customize their libraries. The project uses modern web technologies to deliver a secure, dynamic, and user-friendly experience.
 
