@@ -38,12 +38,12 @@ BookHub is a full-stack web application designed to help users manage their pers
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/bookhub.git
+   git clone https://github.com/VenildoFabricius/book-hub.git
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd bookhub
+   cd book-hub
    ```
 
 3. Install dependencies:
